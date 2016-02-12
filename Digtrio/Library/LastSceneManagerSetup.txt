@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/WahidScene.unity
+- path: Assets/Scenes/DerekScene.unity
   isLoaded: 1
   isActive: 1
