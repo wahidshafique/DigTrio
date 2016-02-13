@@ -3,14 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class InventoryManager : MonoBehaviour {
-    Stack<Pickup> items;
+    Stack<Pickup> pickups;
 
 	// Use this for initialization
 	void Start () {
-	    items = new Stack<Pickup>(100);
-        items.Push(new Pickup(Items.Category.GOLD));
-        InventoryManager.StealItem();
-        InventoryManager.StealItem();
+	    pickups = new Stack<Pickup>(100);        
 	}
 	
 	// Update is called once per frame
@@ -25,10 +22,16 @@ public class InventoryManager : MonoBehaviour {
 
     public void Steal()
     {
-        if (items.Count > 0)
-            items.Pop();
+        if (pickups.Count > 0)
+            pickups.Pop();
         else
             Debug.Log("Can not steal an item that does not exist.");
+    }
+
+    public void Push(Pickup item)
+    {
+        pickups.Push(item);
+        Debug.Log(pickups.Peek().GetName() + " , Size: " + pickups.Count);
     }
 
     // Static for easy external access
@@ -41,5 +44,11 @@ public class InventoryManager : MonoBehaviour {
     public static void StealItem()
     {
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>().Steal();
+    }
+
+    // static for easy external access
+    public static void PushItem(Pickup item)
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>().Push(item);
     }
 }

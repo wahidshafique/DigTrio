@@ -5,6 +5,6 @@ namespace Items
 {
     public enum Category
     {
-        GOLD, SILVER, IRON
+        GOLD, SILVER, IRON, MAX_CATEGORIES
     }
 }
