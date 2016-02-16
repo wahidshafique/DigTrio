@@ -4,55 +4,64 @@ using Items; // namespace
 
 public class Pickup {
     Category type;
-    uint worth;
+    int worth;
     
     // default constructor
     public Pickup()
     {
         type = SetRandomPickup();
-        worth = (uint)type;
+        worth = (int)type;
     }
 
     public Pickup(Category t)
     {
         type = t;
-        worth = (uint)type;
+        worth = (int)type;
     }    
 
     // used with default constructor
     Category SetRandomPickup()
     {
-        int random = Random.Range(0, (int)Category.MAX_CATEGORIES);
-        return (Category)random;
+        return (Category)Random.Range(0, (int)Category.MAX_CATEGORIES);
     }
-    
-    public Category GetItemCategory()
-    {
-        return type;
-    }
-    
-    public string GetName()
-    {
-        string name = null;
 
-        switch(type)
+    public Category Type
+    {
+        get
         {
-        case Category.GOLD:
-            name = "Gold";
-            break;
-        case Category.IRON:
-            name = "Iron";
-            break;
-        case Category.SILVER:
-            name = "Silver";
-            break;
+            return type;
         }
-
-        return name;
     }
 
-    public uint GetWorth()
+    public string Name
     {
-        return worth;
+        get
+        {
+            string name = null;
+
+            switch(type)
+            {
+            case Category.GOLD:
+                name = "Gold";
+                break;
+            case Category.IRON:
+                name = "Iron";
+                break;
+            case Category.COPPER:
+                name = "Copper";
+                break;
+            }
+
+            return name;
+        }
+    }    
+
+    public int Worth
+    {
+        get
+        {
+            return worth;
+        }
     }
+
 }
