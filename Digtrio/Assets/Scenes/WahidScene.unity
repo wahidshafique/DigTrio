@@ -95,6 +95,7 @@ GameObject:
   - 4: {fileID: 543166419}
   - 212: {fileID: 543166418}
   - 114: {fileID: 543166417}
+  - 50: {fileID: 543166420}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -152,6 +153,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!50 &543166420
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 543166416}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1615550113
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +181,7 @@ GameObject:
   - 92: {fileID: 1615550116}
   - 124: {fileID: 1615550115}
   - 81: {fileID: 1615550114}
+  - 114: {fileID: 1615550119}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -238,6 +256,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1615550119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1615550113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad17efd4ea850b143bcc5419e22cf1d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dampTime: 2
+  target: {fileID: 543166419}
 --- !u!1 &1996795881
 GameObject:
   m_ObjectHideFlags: 0
