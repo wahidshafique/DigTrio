@@ -6,11 +6,18 @@ public class ItemScript : MonoBehaviour {
 
     void Awake()
     {
-        pickup = new Pickup();
+        Initialize(null);
     }
 
-    void Start()
-    {        
+    public void Initialize(Pickup p)
+    {
+        if (p == null)
+            pickup = new Pickup();
+        else
+        {
+            pickup = p;
+        }
+
         SetImage();
     }
 
@@ -30,6 +37,11 @@ public class ItemScript : MonoBehaviour {
             render.sprite = Resources.Load<Sprite>("Sprites/Copper_Ingot");
             break;
         }
+    }
+
+    public Pickup GetPickup()
+    {
+        return pickup;
     }
 	
     // player picks up item...

@@ -17,7 +17,15 @@ public class Pickup {
     {
         type = t;
         worth = (int)type;
-    }    
+    }
+    
+    public Pickup(Pickup pickup)
+    {
+        if (pickup == null)
+            Debug.Log("NULL");
+        type = pickup.Type;
+        worth = pickup.Worth;
+    }   
 
     // used with default constructor
     Category SetRandomPickup()
