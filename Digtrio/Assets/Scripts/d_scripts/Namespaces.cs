@@ -35,9 +35,15 @@ namespace UI
         }
 
         // Pop the item pickups displayed
-        public static void PopInventoryDisplay()
+        public static void ClearInventoryDisplay()
         {
             GameObject.FindGameObjectWithTag("GameManager").GetComponent<UIManager>().PopDisplayItems();
+        }
+
+        // Pop requested amount of displayed items
+        public static void PopInventoryDisplayItems(int count)
+        {
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<UIManager>().PopDisplayItems(count);
         }
     }
 }
@@ -60,15 +66,24 @@ namespace Inventory
         }
 
         // Static for easy external access
-        public static void StealItem()
-        {
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>().Steal();
+        // --returns a Pickup object that is "stolen"--
+        // **Check if NULL while using**
+        public static Pickup StealItem()
+        {            
+            return GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>().Steal();         
         }
 
         // static for easy external access
         public static void PushItem(Pickup item)
         {
             GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>().Push(item);
+        }
+
+        // instantiate item GameObject based off of Pickup object
+        // **returns NULL if pickup is invalid**
+        public static GameObject InstantiateItem(Pickup pickup, Vector3 position)
+        {
+            return GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>().CreateItem(pickup, position);
         }
     }    
 }
