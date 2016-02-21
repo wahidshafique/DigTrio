@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Inventory;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -49,15 +50,15 @@ public class EnemyMovement : MonoBehaviour
     {
         if (canWander)
         { 
-            /*if ((transform.position - target.position).magnitude < detectRadius)
+            if ((transform.position - target.position).magnitude < detectRadius)
             {
                 Seek();
             }
             else
             {
                 Wander();
-            }*/
-            Wander();
+            }
+            //Wander();
         }
         else
         {
@@ -70,6 +71,15 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         ForwardRayCast();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        //Debug.Log("Hit Player");
+        if(other.CompareTag("Player"))
+        {
+            SetWander(false);
+        }
     }
 
     #endregion Monobehaviour
@@ -207,6 +217,24 @@ public class EnemyMovement : MonoBehaviour
         lastPos = transform.position;
     }
 
+    protected void ForwardRayCast()           // Raycasts a forward ray to detect is Player is in front of the enemy. Triples the enemy's speed if Player is detected. 
+    {
+        if (!targetDetected)
+        {
+            Debug.DrawRay(transform.position, Vector2.left * (speed / Mathf.Abs(speed)) * detectRadius, Color.red);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left * (speed / Mathf.Abs(speed)), detectRadius);
+            if (hit.collider != null && hit.collider.CompareTag("Player"))      // Detected player
+            {
+                if (flipCoroutine != null)
+                {
+                    StopCoroutine(flipCoroutine);
+                }
+                speed *= 3;
+                StartCoroutine(ChargeTimer());
+            }
+        }
+    }
+
     #endregion Protected Functions
 
     #region Private Functions
@@ -249,21 +277,6 @@ public class EnemyMovement : MonoBehaviour
         canChangeVert = false;
         yield return new WaitForSeconds(minWaitForFlip);
         canChangeVert = true;
-    }
-
-    private void ForwardRayCast()           // Raycasts a forward ray to detect is Player is in front of the enemy. Triples the enemy's speed if Player is detected. 
-    {
-        if (!targetDetected)
-        {
-            Debug.DrawRay(transform.position, Vector2.left * (speed / Mathf.Abs(speed)) * detectRadius, Color.red);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left * (speed / Mathf.Abs(speed)), detectRadius);
-            if (hit.collider != null && hit.collider.CompareTag("Player"))      // Detected player
-            {
-                StopCoroutine(flipCoroutine);
-                speed *= 3;
-                StartCoroutine(ChargeTimer());
-            }
-        }
     }
 
     private IEnumerator ChargeTimer()   // Delays the detection of the Player, reduces enemy speed back to normal. Called after Player is detected.
