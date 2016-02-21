@@ -1,18 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PartolEnemy : EnemyMovement{
+public class PartolEnemy : EnemyMovement
+{
 
-    private Pickup[] enemyInventory;        // Not 100% sure if this is how it will be...
+    #region Variables
 
-	void Start () 
+    // Variables to store stolen items.
+    private Pickup enemyItem;
+    [Tooltip("Number of items the enemy will take from the player.")]
+    public int maxStolenItems = 1;
+
+    // For giving player items while testing
+    public bool test = false;
+
+    #endregion Variables
+
+    #region Monobehaviour
+
+    void Start () 
     {
         SetupVariables();
-        enemyInventory = new Pickup[2];
 	}
 	
 	void Update ()
     {
+        // For tests only, gives player items. Remember to remove this for final game.
+        if (test)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Inventory.Finder.PushItem(new Pickup());
+            }
+            test = false;
+        }
+
         Patrol();
         FlipSprite();
 	}
@@ -27,12 +49,15 @@ public class PartolEnemy : EnemyMovement{
         if(other.CompareTag("Player"))
         {
             // Bumped into the player, make player drop some of it's inventory.
-            // Steal a couple of items then thow them out right away into the immediate vacinity.
-            for(int i = 0; i < enemyInventory.Length; i++)
+            // Steal an item then thow them out right away into the immediate vacinity.
+            for(int i = 0; i < maxStolenItems; i++)
             {
-                //enemyInventory[i] = Inventory.Finder.StealItem(); // Example of how it should be
-                //enemyInventory[i].ThrowAway();                    //
+                enemyItem = Inventory.Finder.StealItem();
+                Inventory.Finder.InstantiateItem(enemyItem, DropRange(other.gameObject.transform));
             }
         }
     }
+
+    #endregion Monobehaviour
+
 }

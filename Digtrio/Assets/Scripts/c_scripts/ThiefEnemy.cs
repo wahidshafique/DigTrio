@@ -1,35 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WanderEnemy : EnemyMovement
+public class ThiefEnemy : EnemyMovement
 {
 
     #region Variables
 
-    // Variables to store stolen items
-    private Pickup enemyItem;
+    // Variables for stealing items
+    private Pickup[] enemyItems;
     private Coroutine resetWanderCoroutine;
     [Tooltip("Amount of time the enemy will flee the player.")]
     public float fleeTime = 1.5f;
     [Tooltip("Number of items the enemy will take from the player.")]
-    public int maxStolenItems = 3;
+    public int maxStolenItems = 7;
+    private bool hasStolen = false;
 
     // For giving player items while testing
     public bool test = false;
 
     #endregion Variables
 
-    void Start ()
-    {
-        SetupVariables();
-	}
-
     #region Monobehaviour
 
-    void Update ()
+    void Start()
+    {
+        SetupVariables();
+        enemyItems = new Pickup[maxStolenItems];
+    }
+
+    void Update()
     {
         // For tests only, gives player items. Remember to remove this for final game.
-        if(test)
+        if (test)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -54,24 +56,15 @@ public class WanderEnemy : EnemyMovement
             Flee();
         }
         FlipSprite();
-	}
-
-    void FixedUpdate()
-    {
-        if ((transform.position - target.position).magnitude > detectRadius)
-        {
-            ForwardRayCast();
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            // If the enemy bumps into the player, steal a bunch of items.
             BumpIntoEnemy(other.gameObject.transform);
             SetWander(false);
-            speed *= 2; // increasing speed gives the effect of running away.
+            speed *= 2;
             if (resetWanderCoroutine != null)
             {
                 StopCoroutine(resetWanderCoroutine);
@@ -84,23 +77,40 @@ public class WanderEnemy : EnemyMovement
 
     #region Private Functions
 
-    // Waits for a bit while the enemy flees, then starts the enemy to wander again.
+    // Waits for a bit while the enemy flees, then starts the enemy to wander again.  When it starts wandering again it throws away all its items.
     private IEnumerator ResetWander()
     {
         yield return new WaitForSeconds(fleeTime);
         SetWander(true);
         speed *= 0.5f;
+        ThrowAwayItems();
     }
 
-    // Called when the enemy bumps into the player.  It steals items then throws them away, gives the effect of dropping a bunch of items.
+    // Called when the enemy bumps into the player.  It steals items before running away with them.
     private void BumpIntoEnemy(Transform player)
     {
-        int r = Random.Range(2, maxStolenItems);
-        for(int i = 0; i < r; i++)
+        if (!hasStolen)
         {
-            enemyItem = Inventory.Finder.StealItem();
-            Inventory.Finder.InstantiateItem(enemyItem, DropRange(player));
+            int r = Random.Range(3, maxStolenItems);
+            for (int i = 0; i < r; i++)
+            {
+                enemyItems[i] = Inventory.Finder.StealItem();
+            }
+            hasStolen = true;
         }
+    }
+
+    // Throws away all it's items then allows the enemy to be able to steal again.
+    private void ThrowAwayItems()
+    {
+        for (int i = 0; i < enemyItems.Length; i++)
+        {
+            if (enemyItems[i] != null)
+            {
+                Inventory.Finder.InstantiateItem(enemyItems[i], DropRange(this.transform));
+            }
+        }
+        hasStolen = false;
     }
 
     #endregion Private Functions

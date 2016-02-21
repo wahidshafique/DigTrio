@@ -35,13 +35,17 @@ public class EnemyMovement : MonoBehaviour
     [Tooltip("Transform of the target used in the seek function.  Can be player or collectable, etc.")]
     public Transform target = null;
     private bool targetDetected = false;
+    private int layerMask = 1 << 2;
+
+    // Stealing Items
+    public float dropRadius = 1.5f;
 
     #endregion Variables
 
     #region Monobehaviour
     // NOTE: These monobehaviour calls are just for testing, this class will be extended
     // and the functions called need to be called in the child script.
-    void Start()
+    /*void Start()
     {
         SetupVariables();
     }
@@ -80,7 +84,7 @@ public class EnemyMovement : MonoBehaviour
         {
             SetWander(false);
         }
-    }
+    }*/
 
     #endregion Monobehaviour
 
@@ -115,6 +119,7 @@ public class EnemyMovement : MonoBehaviour
         yMax = yTopLimit.position.y;
         xMin = xLeftLimit.position.x;
         xMax = xRightLimit.position.x;
+        layerMask = ~layerMask;
     }
 
     protected void Wander()             // Enemy will wander.
@@ -126,18 +131,29 @@ public class EnemyMovement : MonoBehaviour
 
     protected void Patrol()             // Enemy will partol only in the horizontal direction.
     {
+        MoveForward();
         MoveY(RandomBinomial());
         HorizontalFlip();
     }
 
     protected void Seek()               // Enemy will seek (at 1.5x speed) a target set in the SetTarget() function.
     {
-        transform.position = Vector2.MoveTowards(transform.position, target.position, Mathf.Abs(speed * 1.5f) * Time.deltaTime);
+        if (transform.position.y < yMax && transform.position.y > yMin && transform.position.x > xMin && transform.position.x < xMax)
+        {
+            speed *= 2;
+            transform.position = Vector2.MoveTowards(transform.position, target.position, Mathf.Abs(speed * 1.5f) * Time.deltaTime);
+            speed *= 0.5f;
+        }
     }
 
     protected void Flee()               // Enemy will flee (at 2x speed) a target set in the SetTarget() function.
     {
-        transform.position = Vector2.MoveTowards(transform.position, -target.position, Mathf.Abs(speed * 2) * Time.deltaTime);
+        if (transform.position.y < yMax && transform.position.y > yMin && transform.position.x > xMin && transform.position.x < xMax)
+        {
+            speed *= 2;
+            transform.position = Vector2.MoveTowards(transform.position, -target.position * 10, Mathf.Abs(speed * 2) * Time.deltaTime);
+            speed *= 0.5f;
+        }
     }
 
     protected void MoveForward()        // Enemy will move horizontaly.
@@ -221,9 +237,12 @@ public class EnemyMovement : MonoBehaviour
     {
         if (!targetDetected)
         {
-            Debug.DrawRay(transform.position, Vector2.left * (speed / Mathf.Abs(speed)) * detectRadius, Color.red);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left * (speed / Mathf.Abs(speed)), detectRadius);
-            if (hit.collider != null && hit.collider.CompareTag("Player"))      // Detected player
+            Debug.DrawRay(transform.position + Vector3.up * 0.25f, Vector2.left * (speed / Mathf.Abs(speed)) * detectRadius, Color.red);
+            Debug.DrawRay(transform.position + Vector3.down * 0.25f, Vector2.left * (speed / Mathf.Abs(speed)) * detectRadius, Color.red);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.up * 0.25f, Vector2.left * (speed / Mathf.Abs(speed)), detectRadius, layerMask);
+            RaycastHit2D hit2 = Physics2D.Raycast(transform.position + Vector3.down * 0.25f, Vector2.left * (speed / Mathf.Abs(speed)), detectRadius, layerMask);
+            if ((hit.collider != null && hit.collider.gameObject.CompareTag("Player")) ||
+                (hit2.collider != null && hit2.collider.gameObject.CompareTag("Player")))      // Detected player
             {
                 if (flipCoroutine != null)
                 {
@@ -233,6 +252,14 @@ public class EnemyMovement : MonoBehaviour
                 StartCoroutine(ChargeTimer());
             }
         }
+    }
+
+    protected Vector3 DropRange(Transform t)   // Returns a vector around the passed in transform, based off of the dropRadius.
+    {
+        Vector3 range = t.localPosition;
+        range.x += Random.Range(-dropRadius, dropRadius);
+        range.y += Random.Range(-dropRadius, dropRadius);
+        return range;
     }
 
     #endregion Protected Functions
