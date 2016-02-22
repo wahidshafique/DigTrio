@@ -8,8 +8,8 @@ using System.Collections.Generic;
 
 public class InventoryManager : MonoBehaviour {
     Stack<Pickup> pickups;
+	public static int score;
     int gold = 0; // for now...
-
     [SerializeField, Tooltip("Delay between each item that is sold, for visual feedback.")] 
     float popDelay = 0.0f;
     
@@ -71,8 +71,10 @@ public class InventoryManager : MonoBehaviour {
             Items.Category pickupType = pickups.Peek().Type;
 
             pickups.Pop();
+			if(pickups.Count > 0)
+				score -= pickups.Peek ().Worth;
 
-            //UI.Finder.PopInventoryDisplayItems(1);
+            UI.Finder.PopInventoryDisplayItems(1);
 
             return new Pickup(pickupType);
         }
@@ -96,6 +98,7 @@ public class InventoryManager : MonoBehaviour {
     {
         pickups.Push(item);
         Debug.Log(pickups.Peek().Name + " , Size: " + pickups.Count);
+		score += pickups.Peek ().Worth;
     }
     
     // Instantiate an item based off of a Pickup object
