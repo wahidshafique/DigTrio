@@ -19,7 +19,6 @@ public class Movement : MonoBehaviour {
             GUI.Label(new Rect(0 + 130 * num, 0, 120, 100), message);
         }
 		string test = "";
-		test += "SCORE" + InventoryManager.score;
 		GUI.Label(new Rect(0 + 130 * 2 , 0, 120, 100), test);
 
     }

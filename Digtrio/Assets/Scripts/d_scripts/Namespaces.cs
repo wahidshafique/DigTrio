@@ -62,7 +62,7 @@ namespace Inventory
         // Static for easy external access
         public static void SellItems()
         {
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>().Sell();
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>().SellItems();
         }
 
         // Static for easy external access

@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour {
     }
 
     // Update the gold text on the UI
-    public void UpdateGold(int n)
+    public void UpdateCash(int n)
     {
         txtGold.text = n.ToString();
     }
@@ -157,7 +157,7 @@ public class UIManager : MonoBehaviour {
         if (count > displayedInventoryItems.Count)
             count = displayedInventoryItems.Count;
         
-        //Pickup[] copy = Inventory.Finder.GetInventory().GetStackCopy();
+        Pickup[] copy = Inventory.Finder.GetInventory().GetStackCopy();
         
         displayedInventoryItems.Reverse();
 
@@ -175,7 +175,17 @@ public class UIManager : MonoBehaviour {
             }    
 
             Destroy(displayedInventoryItems[i]);
-            displayedInventoryItems.RemoveAt(i);
+            displayedInventoryItems.RemoveAt(i);            
+        }
+
+        int difference = maxDisplayedItems - displayedInventoryItems.Count;
+        if (difference > copy.Length)
+        {
+            difference = copy.Length;
+        }
+        for (int i = 0; i < difference; i++)
+        {
+            DisplayNewItem(copy[copy.Length - 1 - i]);
         }
 
         displayedInventoryItems.Reverse();

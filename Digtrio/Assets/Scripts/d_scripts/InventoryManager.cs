@@ -8,8 +8,7 @@ using System.Collections.Generic;
 
 public class InventoryManager : MonoBehaviour {
     Stack<Pickup> pickups;
-	public static int score;
-    int gold = 0; // for now...
+    int cash;
     [SerializeField, Tooltip("Delay between each item that is sold, for visual feedback.")] 
     float popDelay = 0.0f;
     
@@ -23,42 +22,32 @@ public class InventoryManager : MonoBehaviour {
 
     // sell the items to the vendor
     // can be accessed by Inventory.Finder as well
-    public void Sell()
-    {
-        StartCoroutine(SellDelay());
-
-        // clear the ui display of pickups
-        UI.Finder.ClearInventoryDisplay();
-        multiplier = 0;       
-    }
+    
 
     // delay each item sold to the vendor
-    IEnumerator SellDelay()
+    public void SellItems()
     {
-        yield return new WaitForSeconds(popDelay);
-
         if (pickups.Count > 0)
         {
-            // check for potential point multiplier
-            if (pickups.Peek().Type == prevType)
+            for (int i = 0; i <= pickups.Count; i++)
             {
-                multiplier++;
+                // check for potential point multiplier
+                if (pickups.Peek().Type == prevType)
+                {
+                    multiplier++;
+                }
+                else
+                {
+                    multiplier = 1;
+                }
+
+                // pop the top of the stack
+                prevType = pickups.Peek().Type;
+                pickups.Pop();
+
+                cash += multiplier * multiplier;
             }
-            else
-            {                
-                multiplier = 1;
-            }           
-            
-            // pop the top of the stack
-            prevType = pickups.Peek().Type;
-            pickups.Pop();
-
-            gold += multiplier*multiplier;
-
-            // update the UI on what has changed
-            UI.Finder.GetUserInterface().UpdateGold(gold);
-
-            StartCoroutine(SellDelay());
+            UI.Finder.GetUserInterface().UpdateCash(cash);
         }            
     }
 
@@ -72,7 +61,7 @@ public class InventoryManager : MonoBehaviour {
 
             pickups.Pop();
 			if(pickups.Count > 0)
-				score -= pickups.Peek ().Worth;
+				cash -= pickups.Peek ().Worth;
 
             UI.Finder.PopInventoryDisplayItems(1);
 
@@ -82,7 +71,7 @@ public class InventoryManager : MonoBehaviour {
             Debug.Log("Can not steal an item that does not exist.");
 
         return null;
-    }
+    }    
     
     public Pickup[] GetStackCopy()
     {
@@ -98,7 +87,6 @@ public class InventoryManager : MonoBehaviour {
     {
         pickups.Push(item);
         Debug.Log(pickups.Peek().Name + " , Size: " + pickups.Count);
-		score += pickups.Peek ().Worth;
     }
     
     // Instantiate an item based off of a Pickup object
