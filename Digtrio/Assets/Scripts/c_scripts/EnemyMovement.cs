@@ -20,8 +20,8 @@ public class EnemyMovement : MonoBehaviour
     private Coroutine flipCoroutine, vertCoroutine;     // Saves coroutines to be able to stop them.
     private int prevDir;
     public bool canWander = true;
-    [Tooltip("Screen limit markers.  Enemy cannot pass these points.")]
-    public Transform xLeftLimit, xRightLimit, yBottomLimit, yTopLimit;
+    //[Tooltip("Screen limit markers.  Enemy cannot pass these points.")]
+    //public Transform xLeftLimit, xRightLimit, yBottomLimit, yTopLimit;
     private float xMin, xMax, yMin, yMax;
 
     // Sprite facing variables
@@ -115,10 +115,10 @@ public class EnemyMovement : MonoBehaviour
 
     protected void SetupVariables()     // Call this in the Start() function of child classes to setup boundries.
     {
-        yMin = yBottomLimit.position.y;
-        yMax = yTopLimit.position.y;
-        xMin = xLeftLimit.position.x;
-        xMax = xRightLimit.position.x;
+        yMin = WorldBounds.Get.bottom;//yBottomLimit.position.y;
+        yMax = WorldBounds.Get.top;//yTopLimit.position.y;
+        xMin = WorldBounds.Get.left;//xLeftLimit.position.x;
+        xMax = WorldBounds.Get.right;//xRightLimit.position.x;
         layerMask = ~layerMask;
     }
 
@@ -138,31 +138,39 @@ public class EnemyMovement : MonoBehaviour
 
     protected void Seek()               // Enemy will seek (at 1.5x speed) a target set in the SetTarget() function.
     {
-        if (transform.position.y < yMax && transform.position.y > yMin && transform.position.x > xMin && transform.position.x < xMax)
+        if (transform.position.y <= yMax && transform.position.y >= yMin && transform.position.x >= xMin && transform.position.x <= xMax)
         {
             speed *= 2;
             transform.position = Vector2.MoveTowards(transform.position, target.position, Mathf.Abs(speed * 1.5f) * Time.deltaTime);
+            Mathf.Clamp(transform.position.y, yMin, yMax);
+            Mathf.Clamp(transform.position.x, xMin, xMax);
             speed *= 0.5f;
         }
     }
 
     protected void Flee()               // Enemy will flee (at 2x speed) a target set in the SetTarget() function.
     {
-        if (transform.position.y < yMax && transform.position.y > yMin && transform.position.x > xMin && transform.position.x < xMax)
+        if (transform.position.y <= yMax && transform.position.y >= yMin && transform.position.x >= xMin && transform.position.x <= xMax)
         {
             speed *= 2;
             transform.position = Vector2.MoveTowards(transform.position, -target.position * 10, Mathf.Abs(speed * 2) * Time.deltaTime);
+            Mathf.Clamp(transform.position.y, yMin, yMax);
+            Mathf.Clamp(transform.position.x, xMin, xMax);
             speed *= 0.5f;
         }
     }
 
     protected void MoveForward()        // Enemy will move horizontaly.
     {
+        Mathf.Clamp(transform.position.y, yMin, yMax);
+        Mathf.Clamp(transform.position.x, xMin, xMax);
         transform.Translate(Vector2.left * speed * Time.deltaTime);
     }
 
     protected void MoveY(int direction) // Enemy will wiggle in the vertical direction, possiblility of moving patrol up or down slightly.
     {
+        Mathf.Clamp(transform.position.y, yMin, yMax);
+        Mathf.Clamp(transform.position.x, xMin, xMax);
         if ((direction > 0 && transform.position.y < yMax) || (direction < 0 && transform.position.y > yMin))
         {
             transform.Translate(Vector2.up * Mathf.Abs(speed) * vertSpeedMultipliyer * direction * Time.deltaTime);
@@ -179,6 +187,8 @@ public class EnemyMovement : MonoBehaviour
 
     protected void SmoothMoveY(int direction)   // Enemy will move up or down in its wander.
     {
+        Mathf.Clamp(transform.position.y, yMin, yMax);
+        Mathf.Clamp(transform.position.x, xMin, xMax);
         if ((direction > 0 && transform.position.y < yMax) || (direction < 0 && transform.position.y > yMin))
         {
             if (canChangeVert)
