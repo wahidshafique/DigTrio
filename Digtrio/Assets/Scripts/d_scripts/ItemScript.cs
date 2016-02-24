@@ -28,20 +28,20 @@ public class ItemScript : MonoBehaviour {
         switch(pickup.Type)
         {
         case Items.Category.GOLD:
-            render.sprite = Resources.Load<Sprite>("Sprites/Gold_Ingot");        
+            render.sprite = Resources.Load<Sprite>("Sprites/gold_ore");        
             break;
         case Items.Category.IRON:
-            render.sprite = Resources.Load<Sprite>("Sprites/Iron_Ingot");
+            render.sprite = Resources.Load<Sprite>("Sprites/iron_ore");
             break;
         case Items.Category.COPPER:
-            render.sprite = Resources.Load<Sprite>("Sprites/Copper_Ingot");
+            render.sprite = Resources.Load<Sprite>("Sprites/copper_ore");
             break;
         }
     }
 
-    public Pickup GetPickup()
+    public Items.Category GetCategory()
     {
-        return pickup;
+        return pickup.Type;
     }
 	
     // player picks up item...
@@ -50,7 +50,6 @@ public class ItemScript : MonoBehaviour {
         if (other.transform.name == "Player")
         {
             Inventory.Finder.PushItem(pickup);
-            UI.Finder.DisplayNewInventoryItem(gameObject);
             Destroy(gameObject);
             
             // some sort of feedback effect?            

@@ -7,7 +7,7 @@ using System.Collections.Generic;
  */
 
 public class InventoryManager : MonoBehaviour {
-    Stack<Pickup> pickups;
+    StackList<Pickup> pickups;
     int cash;
     [SerializeField, Tooltip("Delay between each item that is sold, for visual feedback.")] 
     float popDelay = 0.0f;
@@ -16,8 +16,8 @@ public class InventoryManager : MonoBehaviour {
     Items.Category prevType;                    // the previous item type sold    
 
 	// Use this for initialization
-	void Start () {
-	    pickups = new Stack<Pickup>(100);    
+	void Awake () {
+	    pickups = new StackList<Pickup>(50);    
 	}
 
     // sell the items to the vendor
@@ -47,7 +47,10 @@ public class InventoryManager : MonoBehaviour {
 
                 cash += multiplier * multiplier;
             }
-            UI.Finder.GetUserInterface().UpdateCash(cash);
+            
+            UIManager ui = UI.Finder.GetUserInterface();
+            ui.UpdateCash(cash);
+            ui.UpdateItemDisplay();
         }            
     }
 
@@ -63,7 +66,7 @@ public class InventoryManager : MonoBehaviour {
 			if(pickups.Count > 0)
 				cash -= pickups.Peek ().Worth;
 
-            UI.Finder.PopInventoryDisplayItems(1);
+            UI.Finder.UpdateItemDisplay();
 
             return new Pickup(pickupType);
         }
@@ -71,14 +74,21 @@ public class InventoryManager : MonoBehaviour {
             Debug.Log("Can not steal an item that does not exist.");
 
         return null;
+    }
+    
+    public int StackCount()
+    {
+        return pickups.Count;
     }    
     
-    public Pickup[] GetStackCopy()
+    public void CopyStackTo(Pickup[] copy)
     {
-        Pickup[] copy = new Pickup[pickups.Count];
-        pickups.CopyTo(copy, 0);
-        
-        return copy;
+        pickups.CopyTo(copy);
+    }
+
+    public StackList<Pickup> GetStack()
+    {
+        return pickups;
     }
 
     // Push a new item onto the stack
@@ -86,6 +96,7 @@ public class InventoryManager : MonoBehaviour {
     public void Push(Pickup item)
     {
         pickups.Push(item);
+        UI.Finder.UpdateItemDisplay();
         Debug.Log(pickups.Peek().Name + " , Size: " + pickups.Count);
     }
     

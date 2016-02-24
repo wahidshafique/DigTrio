@@ -29,21 +29,15 @@ namespace UI
         }
 
         // Display item picked up in the ui
-        public static void DisplayNewInventoryItem(GameObject item)
+        public static void UpdateItemDisplay()
         {
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<UIManager>().DisplayNewItem(item);
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<UIManager>().UpdateItemDisplay();
         }
 
         // Pop the item pickups displayed
         public static void ClearInventoryDisplay()
         {
             GameObject.FindGameObjectWithTag("GameManager").GetComponent<UIManager>().PopDisplayItems();
-        }
-
-        // Pop requested amount of displayed items
-        public static void PopInventoryDisplayItems(int count)
-        {
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<UIManager>().PopDisplayItems(count);
         }
     }
 }

@@ -12,11 +12,12 @@ public class UIManager : MonoBehaviour {
 
     #region Item Display Variables
 
-    [SerializeField, Tooltip("Maximum amount of picked up items that are displayed on the UI.")] 
-    int maxDisplayedItems; // displayed inventory items on stack
+    [Tooltip("Maximum amount of picked up items that are displayed on the UI.")]    
+    public int maxDisplayedItems = 5; // displayed inventory items on stack
 
-    GameObject pnlInventory;
-    List<GameObject> displayedInventoryItems;
+    StackList<Pickup> pickupsRef;
+    GameObject[] displayedInventoryItems;
+    GameObject pnlInventory;    
     
     [SerializeField, Tooltip("Size of the pickup items displayed on the UI.")] 
     float displayItemSize = 20.0f;
@@ -32,10 +33,15 @@ public class UIManager : MonoBehaviour {
         txtGold.gameObject.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
         
         // Setup for item display
-        displayedInventoryItems = new List<GameObject>();
+        displayedInventoryItems = new GameObject[maxDisplayedItems];
          
         pnlInventory = Instantiate(Resources.Load<GameObject>("Prefabs/UI/PanelInventory"));        
         pnlInventory.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
+    }
+
+    void Start()
+    {
+        pickupsRef = Inventory.Finder.GetInventory().GetStack();
     }
 
     // Update the gold text on the UI
@@ -46,46 +52,79 @@ public class UIManager : MonoBehaviour {
     
     #region Item Display Functions
 
-    // display picked up items on UI, and store in list
+    // display picked up items on UI
     // can be accessed by UI.Finder as well
-    public void DisplayNewItem(GameObject item)
+    public void UpdateItemDisplay()
     {
         RectTransform rtInventory = pnlInventory.GetComponent<RectTransform>();
-        
-        // instantiate new UI image gameobject and position
-        GameObject displayItem = new GameObject();
-        displayItem.name = "Pickup";
-        displayItem.transform.SetParent(pnlInventory.transform, false);
-        displayItem.AddComponent<RectTransform>();
-        displayItem.AddComponent<CanvasRenderer>();
-        
-        Image image = displayItem.AddComponent<Image>();        
-        image.sprite = item.GetComponent<SpriteRenderer>().sprite;
-        
-        RectTransform rtDisplayItem = displayItem.GetComponent<RectTransform>();
-        rtDisplayItem.sizeDelta = new Vector3(displayItemSize, displayItemSize);
-        rtDisplayItem.position = new Vector3(rtDisplayItem.position.x, rtDisplayItem.position.y+(rtInventory.rect.height/4));
 
-        // move items down when new item is pushed
-        if (displayedInventoryItems.Count > 0)
-        {
-            foreach (GameObject r in displayedInventoryItems)
-            {
-                GameObject current = r;
-                current.transform.position -= new Vector3(0, displayItemSize/displayItemSpacing);
-            }
-        }                
+        int displayedItemCount = 0;
 
-        // pop any excess items
-        if (displayedInventoryItems.Count >= maxDisplayedItems)
+        int startCountingFrom = 0; // used for showing only maxDisplayedItems
+        
+        // as long as there are more items than the screen can show
+        // then start counting the appropriate element
+        if (pickupsRef.Count > maxDisplayedItems)
+            startCountingFrom = pickupsRef.Count - maxDisplayedItems;
+
+        float itemSpacing = 0.0f; // how much space between the first item and the current
+
+        // Clear the old display of items
+        foreach (GameObject r in displayedInventoryItems)
         {
-            Destroy(displayedInventoryItems[0]);
-            displayedInventoryItems.RemoveAt(0);
+            if (r != null)
+                Destroy(r);
         }
+
+        // Update the Item Display
+        for (int i = startCountingFrom; i < pickupsRef.Count; i++)
+        {
+            // instantiate new UI image gameobject and attach
+            // the appropriate components
+            GameObject displayItem = new GameObject();
+            displayItem.name = "Pickup";
+            displayItem.transform.SetParent(pnlInventory.transform, false);
+            displayItem.AddComponent<RectTransform>();
+            displayItem.AddComponent<CanvasRenderer>();
         
-        displayedInventoryItems.Add(displayItem);
+            Image image = displayItem.AddComponent<Image>();        
+            
+            // Choose the right image to display
+            switch (pickupsRef.GetItem(i).Type)
+            {
+                case Items.Category.GOLD:
+                    image.sprite = Resources.Load<Sprite>("Sprites/Gold_Ingot");
+                    break;
+                case Items.Category.IRON:
+                    image.sprite = Resources.Load<Sprite>("Sprites/Iron_Ingot");
+                    break;
+                case Items.Category.COPPER:
+                    image.sprite = Resources.Load<Sprite>("Sprites/Copper_Ingot");
+                    break;
+            }
+            
+            // position, size, and space the new item appropriately on the display
+            RectTransform rtDisplayItem = displayItem.GetComponent<RectTransform>();
+            rtDisplayItem.sizeDelta = new Vector3(displayItemSize, displayItemSize);
+            rtDisplayItem.position = new Vector3(rtDisplayItem.position.x, 
+                                                 rtDisplayItem.position.y+
+                                                 (rtInventory.rect.height/32 - displayItemSize + itemSpacing));            
+            
+
+            // keep track of created item
+            displayedInventoryItems[displayedItemCount] = displayItem;
+
+            // next item will be that much further from first item
+            itemSpacing += displayItemSpacing;
+
+            // how many items have been created so far, for indexing in displayedInventoryItems
+            displayedItemCount++;
+
+            Debug.Log(displayedItemCount);
+        }
     }
 
+    /*
     // display picked up items on UI, and store in list
     // can be accessed by UI.Finder as well
     public void DisplayNewItem(Pickup item)
@@ -136,20 +175,20 @@ public class UIManager : MonoBehaviour {
         
         displayedInventoryItems.Add(displayItem);
     }
+    */
     
-    // generally called when items are going to be sold
+    // Destroy all the displayed items
     // -- function can be accessed by UI.Finder --
     public void PopDisplayItems()
     {
         foreach (GameObject r in displayedInventoryItems)
         {
-            GameObject current = r;
-            Destroy(current);            
+            if (r != null)
+                Destroy(r);          
         }
-
-        displayedInventoryItems.RemoveRange(0, displayedInventoryItems.Count);
     }
 
+    /*
     // **overload** for popping the requested amount of items
     // -- function can be accessed by UI.Finder --
     public void PopDisplayItems(int count)
@@ -157,7 +196,8 @@ public class UIManager : MonoBehaviour {
         if (count > displayedInventoryItems.Count)
             count = displayedInventoryItems.Count;
         
-        Pickup[] copy = Inventory.Finder.GetInventory().GetStackCopy();
+        Pickup[] copy = new Pickup[Inventory.Finder.GetInventory().StackCount()];
+        Inventory.Finder.GetInventory().CopyStackTo(copy);
         
         displayedInventoryItems.Reverse();
 
@@ -189,7 +229,7 @@ public class UIManager : MonoBehaviour {
         }
 
         displayedInventoryItems.Reverse();
-    }
+    }*/
 
     #endregion    	
 }

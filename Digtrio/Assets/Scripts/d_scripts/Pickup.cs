@@ -20,9 +20,7 @@ public class Pickup {
     }
     
     public Pickup(Pickup pickup)
-    {
-        if (pickup == null)
-            Debug.Log("NULL");
+    {        
         type = pickup.Type;
         worth = pickup.Worth;
     }   
