@@ -73,20 +73,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2968b1fc973dc45acf944d66f65203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.5
   vertSpeedMultipliyer: 3
   minWaitForFlip: 0.5
-  canWander: 1
-  xLeftLimit: {fileID: 0}
-  xRightLimit: {fileID: 0}
-  yBottomLimit: {fileID: 0}
-  yTopLimit: {fileID: 0}
   detectRadius: 5.5
   target: {fileID: 0}
   dropRadius: 3
   fleeTime: 1.5
-  maxItemSteal: 5
-  test: 0
+  maxStolenItems: 3
 --- !u!212 &21259872
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -123,7 +117,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 156220}

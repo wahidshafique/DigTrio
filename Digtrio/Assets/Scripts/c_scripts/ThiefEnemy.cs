@@ -16,7 +16,7 @@ public class ThiefEnemy : EnemyMovement
     private bool hasStolen = false;
 
     // For giving player items while testing
-    public bool test = false;
+    private bool test = false;
 
     #endregion Variables
 
@@ -70,6 +70,19 @@ public class ThiefEnemy : EnemyMovement
                 StopCoroutine(resetWanderCoroutine);
             }
             resetWanderCoroutine = StartCoroutine(ResetWander());
+        }
+
+        if (other.CompareTag("Wall"))
+        {
+            atWall = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.CompareTag("Wall"))
+        {
+            atWall = false;
         }
     }
 

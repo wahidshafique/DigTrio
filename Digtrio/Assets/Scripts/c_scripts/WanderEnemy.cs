@@ -15,7 +15,7 @@ public class WanderEnemy : EnemyMovement
     public int maxStolenItems = 3;
 
     // For giving player items while testing
-    public bool test = false;
+    private bool test = false;
 
     #endregion Variables
 

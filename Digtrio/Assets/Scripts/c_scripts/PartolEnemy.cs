@@ -12,7 +12,7 @@ public class PartolEnemy : EnemyMovement
     public int maxStolenItems = 1;
 
     // For giving player items while testing
-    public bool test = false;
+    private bool test = false;
 
     #endregion Variables
 

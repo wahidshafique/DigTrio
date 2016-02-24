@@ -4,7 +4,13 @@ using System.Collections;
 public class PlayAreaSize : MonoBehaviour {
 
     [SerializeField, Tooltip("Drag in gameObjects to set the play area's boundries")]
-    private Transform top, bottom, left, right;
+    private Transform top;
+    [SerializeField, Tooltip("Drag in gameObjects to set the play area's boundries")]
+    private Transform bottom;
+    [SerializeField, Tooltip("Drag in gameObjects to set the play area's boundries")]
+    private Transform left;
+    [SerializeField, Tooltip("Drag in gameObjects to set the play area's boundries")]
+    private Transform right;
     
     public float GetTop()
     {

@@ -42,8 +42,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 1
+  m_GravityScale: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -73,14 +73,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485f423d7320ae747a2c681886b033c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.5
   vertSpeedMultipliyer: 3
   minWaitForFlip: 0.5
   canWander: 1
-  xLeftLimit: {fileID: 0}
-  xRightLimit: {fileID: 0}
-  yBottomLimit: {fileID: 0}
-  yTopLimit: {fileID: 0}
   detectRadius: 5
   target: {fileID: 0}
   dropRadius: 4

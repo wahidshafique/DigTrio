@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
     private bool canChangeVert = true;
     private Coroutine flipCoroutine, vertCoroutine;     // Saves coroutines to be able to stop them.
     private int prevDir;
-    public bool canWander = true;
+    protected bool canWander = true;
     //[Tooltip("Screen limit markers.  Enemy cannot pass these points.")]
     //public Transform xLeftLimit, xRightLimit, yBottomLimit, yTopLimit;
     private float xMin, xMax, yMin, yMax;
@@ -28,6 +28,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 lastPos;
     private bool facingLeft = true;
     private bool movingLeft = true;
+    protected bool atWall = false;
 
     // Enemy Detection
     [Tooltip("How close the player needs to be before it is detected by the enemy.  Also used for Raycast distance.")]
@@ -115,10 +116,11 @@ public class EnemyMovement : MonoBehaviour
 
     protected void SetupVariables()     // Call this in the Start() function of child classes to setup boundries.
     {
-        yMin = WorldBounds.Get.bottom;//yBottomLimit.position.y;
-        yMax = WorldBounds.Get.top;//yTopLimit.position.y;
-        xMin = WorldBounds.Get.left;//xLeftLimit.position.x;
-        xMax = WorldBounds.Get.right;//xRightLimit.position.x;
+        yMin = WorldBounds.Get.bottom;
+        yMax = WorldBounds.Get.top;
+        xMin = WorldBounds.Get.left;
+        xMax = WorldBounds.Get.right;
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         layerMask = ~layerMask;
     }
 
@@ -142,8 +144,6 @@ public class EnemyMovement : MonoBehaviour
         {
             speed *= 2;
             transform.position = Vector2.MoveTowards(transform.position, target.position, Mathf.Abs(speed * 1.5f) * Time.deltaTime);
-            Mathf.Clamp(transform.position.y, yMin, yMax);
-            Mathf.Clamp(transform.position.x, xMin, xMax);
             speed *= 0.5f;
         }
     }
@@ -154,23 +154,17 @@ public class EnemyMovement : MonoBehaviour
         {
             speed *= 2;
             transform.position = Vector2.MoveTowards(transform.position, -target.position * 10, Mathf.Abs(speed * 2) * Time.deltaTime);
-            Mathf.Clamp(transform.position.y, yMin, yMax);
-            Mathf.Clamp(transform.position.x, xMin, xMax);
             speed *= 0.5f;
         }
     }
 
     protected void MoveForward()        // Enemy will move horizontaly.
     {
-        Mathf.Clamp(transform.position.y, yMin, yMax);
-        Mathf.Clamp(transform.position.x, xMin, xMax);
         transform.Translate(Vector2.left * speed * Time.deltaTime);
     }
 
     protected void MoveY(int direction) // Enemy will wiggle in the vertical direction, possiblility of moving patrol up or down slightly.
     {
-        Mathf.Clamp(transform.position.y, yMin, yMax);
-        Mathf.Clamp(transform.position.x, xMin, xMax);
         if ((direction > 0 && transform.position.y < yMax) || (direction < 0 && transform.position.y > yMin))
         {
             transform.Translate(Vector2.up * Mathf.Abs(speed) * vertSpeedMultipliyer * direction * Time.deltaTime);
@@ -187,8 +181,6 @@ public class EnemyMovement : MonoBehaviour
 
     protected void SmoothMoveY(int direction)   // Enemy will move up or down in its wander.
     {
-        Mathf.Clamp(transform.position.y, yMin, yMax);
-        Mathf.Clamp(transform.position.x, xMin, xMax);
         if ((direction > 0 && transform.position.y < yMax) || (direction < 0 && transform.position.y > yMin))
         {
             if (canChangeVert)
@@ -204,13 +196,19 @@ public class EnemyMovement : MonoBehaviour
         }
         else if (direction > 0 && transform.position.y >= yMax)
         {
-            StopCoroutine(vertCoroutine);
+            if (flipCoroutine != null)
+            {
+                StopCoroutine(vertCoroutine);
+            }
             canChangeVert = true;
             MoveY(-1);
         }
         else if (direction < 0 && transform.position.y <= yMin)
         {
-            StopCoroutine(vertCoroutine);
+            if (flipCoroutine != null)
+            {
+                StopCoroutine(vertCoroutine);
+            }
             canChangeVert = true;
             MoveY(1);
         }
@@ -218,7 +216,7 @@ public class EnemyMovement : MonoBehaviour
 
     protected void FlipSprite()         // Enemy sprite will face in the direction its moving.  Needs to be called on Update().
     {
-        if (transform.position.x - lastPos.x > 0)   // Moving Right
+        if (transform.position.x - lastPos.x > 0f && !atWall)   // Moving Right
         {
             if (movingLeft && facingLeft)
             {
@@ -229,7 +227,7 @@ public class EnemyMovement : MonoBehaviour
                 movingLeft = false;
             }
         }                                           // Moving Left
-        else
+        else if (transform.position.x - lastPos.x < 0f && !atWall)
         {
             if (!movingLeft && !facingLeft)
             {
@@ -272,6 +270,12 @@ public class EnemyMovement : MonoBehaviour
         return range;
     }
 
+    protected IEnumerator NoLongerAtWall()
+    {
+        yield return new WaitForSeconds(0.3f);
+        atWall = false;
+    }
+
     #endregion Protected Functions
 
     #region Private Functions
@@ -297,7 +301,10 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             speed *= -1;
-            StopCoroutine(flipCoroutine);
+            if (flipCoroutine != null)
+            {
+                StopCoroutine(flipCoroutine);
+            }
             flipCoroutine = StartCoroutine(CountToFlip());
         }
     }
