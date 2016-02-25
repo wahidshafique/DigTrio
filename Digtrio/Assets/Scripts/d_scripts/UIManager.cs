@@ -7,7 +7,21 @@ using UnityEngine.UI;
  * This component on the GameManager object can be accessed by the UI.Finder
  */
 public class UIManager : MonoBehaviour {
-   Text txtGold;
+    Canvas mainCanvas;
+    Text txtCash;
+
+    #region Score Panel Variables
+
+    GameObject pnlScore;
+    Text txtFinalScore;
+    Text txtGold;
+    Text txtIron;
+    Text txtCopper;
+    
+    // a reference to the inventory's itemCount
+    Dictionary<Items.Category, int> itemCountRef;    
+
+    #endregion
 
     #region Item Display Variables
 
@@ -26,27 +40,58 @@ public class UIManager : MonoBehaviour {
     #endregion
 
     void Awake()
-    {        
-        // for now...       
-        txtGold = Instantiate(Resources.Load<GameObject>("Prefabs/UI/GoldText")).GetComponent<Text>();
-        txtGold.gameObject.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
+    {   
+        // Get the main canvas
+        mainCanvas = FindObjectOfType<Canvas>();
+
+        if (mainCanvas != null)
+        {
+            // for now...       
+            txtCash = Instantiate(Resources.Load<GameObject>("Prefabs/UI/GoldText")).GetComponent<Text>();
+            txtCash.gameObject.transform.SetParent(mainCanvas.transform, false);
+            txtCash.text = "0";
         
-        // Setup for item display
-        displayedInventoryItems = new GameObject[maxDisplayedItems];
+            // Setup for item display
+            displayedInventoryItems = new GameObject[maxDisplayedItems];
          
-        pnlInventory = Instantiate(Resources.Load<GameObject>("Prefabs/UI/PanelInventory"));        
-        pnlInventory.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
+            pnlInventory = Instantiate(Resources.Load<GameObject>("Prefabs/UI/PanelInventory"));        
+            pnlInventory.transform.SetParent(mainCanvas.transform, false);
+
+            // Setup the score panel
+            pnlScore = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/UI/pnlScore"));
+            pnlScore.transform.SetParent(mainCanvas.transform, false);
+            pnlScore.SetActive(false);
+
+            txtFinalScore = pnlScore.transform.Find("txtScore").GetComponent<Text>();
+            txtFinalScore.text = "$ 0";
+            
+            txtCopper = pnlScore.transform.Find("txtCopper").GetComponent<Text>();
+            txtCopper.text = "x 0";
+
+            txtIron = pnlScore.transform.Find("txtIron").GetComponent<Text>();
+            txtIron.text = "x 0";
+
+            txtGold = pnlScore.transform.Find("txtGold").GetComponent<Text>();
+            txtGold.text = "x 0";
+        }
+        else
+        {
+            Debug.Log("Main canvas not found (UIManager).");
+        }
     }
 
     void Start()
     {
-        pickupsRef = Inventory.Finder.GetInventory().GetStack();
+        // Get Inventory's references
+        InventoryManager inventory = Inventory.Finder.GetInventory();
+        pickupsRef = inventory.GetStack();
+        itemCountRef = inventory.GetItemCount();
     }
 
     // Update the gold text on the UI
     public void UpdateCash(int n)
     {
-        txtGold.text = n.ToString();
+        txtCash.text = n.ToString();
     }
     
     #region Item Display Functions
@@ -230,4 +275,23 @@ public class UIManager : MonoBehaviour {
     }*/
 
     #endregion    	
+
+    #region Score Display Functions
+
+    // Show the Score panel and update its values
+    public void DisplayScore(bool b)
+    {
+        pnlScore.SetActive(b);
+
+        if (b)
+        {
+            txtFinalScore.text = "$ " + txtCash.text;
+
+            txtCopper.text = "x " + itemCountRef[Items.Category.COPPER].ToString();
+            txtIron.text = "x " + itemCountRef[Items.Category.IRON].ToString();
+            txtGold.text = "x " + itemCountRef[Items.Category.GOLD].ToString();
+        }
+    }
+
+    #endregion
 }

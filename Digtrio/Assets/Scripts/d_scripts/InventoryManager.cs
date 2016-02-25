@@ -16,7 +16,7 @@ public class InventoryManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 	    pickups = new StackList<Pickup>(50);
-        itemCount = new Dictionary<Items.Category, int>();        
+        itemCount = new Dictionary<Items.Category, int>();              
 	}
 
     void Start()
@@ -25,7 +25,7 @@ public class InventoryManager : MonoBehaviour {
         for (int i = 0; i < (int)Items.Category.MAX_CATEGORIES; i++)
         {
             itemCount.Add((Items.Category)i, 0);
-        }
+        }  
     }
 
     // sell the items to the vendor
@@ -50,14 +50,9 @@ public class InventoryManager : MonoBehaviour {
 
                 // pop the top of the stack
                 prevType = pickup.Type;
-                
-                Debug.Log(pickups.GetItem(i).Worth);
 
                 // add to the cash
-                cash += (multiplier * multiplier) * pickups.GetItem(i).Worth;
-
-                // Subtract from item count
-                SubtractToItemCount(pickup);                              
+                cash += (multiplier * multiplier) * pickups.GetItem(i).Worth;                           
             }
             
             // clear the stack
@@ -72,6 +67,11 @@ public class InventoryManager : MonoBehaviour {
         {
             Debug.Log("There is nothing to sell.");
         }            
+    }
+
+    public Dictionary<Items.Category, int> GetItemCount()
+    {
+        return itemCount;
     }
 
     void AddToItemCount(Pickup item)

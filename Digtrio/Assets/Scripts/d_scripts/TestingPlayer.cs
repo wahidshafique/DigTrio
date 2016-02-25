@@ -21,5 +21,10 @@ public class TestingPlayer : MonoBehaviour {
         {
             Inventory.Finder.StealItem();
         }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Game.Finder.ToScore();
+        }
 	}
 }
