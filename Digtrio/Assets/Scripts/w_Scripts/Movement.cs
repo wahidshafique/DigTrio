@@ -64,6 +64,6 @@ public class Movement : MonoBehaviour {
 
     void Sniff() {
         RaycastHit2D foundHit = Physics2D.Raycast(transform.position, transform.right, 2, 1 << 8);
-        Debug.DrawRay(transform.position, target, Color.green, 2);
+        //Debug.DrawRay(transform.position, target, Color.green, 2);
     }
 }

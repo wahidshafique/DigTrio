@@ -8,60 +8,58 @@ using UnityEngine.UI;
  */
 
 public class UIManager : MonoBehaviour {
-   Text txtGold;
+    Text txtGold;
 
     #region Item Display Variables
 
-    [Tooltip("Maximum amount of picked up items that are displayed on the UI.")]    
+    [Tooltip("Maximum amount of picked up items that are displayed on the UI.")]
     public int maxDisplayedItems = 5; // displayed inventory items on stack
 
     StackList<Pickup> pickupsRef;
     GameObject[] displayedInventoryItems;
-    GameObject pnlInventory;    
-    
-    [SerializeField, Tooltip("Size of the pickup items displayed on the UI.")] 
+    GameObject pnlInventory;
+
+    [SerializeField, Tooltip("Size of the pickup items displayed on the UI.")]
     float displayItemSize = 20.0f;
-    [SerializeField, Tooltip("Spacing between each pickup item displayed on the UI.")] 
+    [SerializeField, Tooltip("Spacing between each pickup item displayed on the UI.")]
     float displayItemSpacing = 4.0f;
 
     #endregion
 
-    void Awake()
-    {
+    void Awake() {
         // for now...       
-        txtGold = Instantiate(Resources.Load<GameObject>("Prefabs/UI/GoldText")).GetComponent<Text>();
-        txtGold.gameObject.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
-        
+        if (txtGold) {
+            txtGold = Instantiate(Resources.Load<GameObject>("Prefabs/UI/GoldText")).GetComponent<Text>();
+            txtGold.gameObject.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
+        }
         // Setup for item display
         displayedInventoryItems = new GameObject[maxDisplayedItems];
-         
-        pnlInventory = Instantiate(Resources.Load<GameObject>("Prefabs/UI/PanelInventory"));        
-        pnlInventory.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
+        if (pnlInventory) {
+            pnlInventory = Instantiate(Resources.Load<GameObject>("Prefabs/UI/PanelInventory"));
+            pnlInventory.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
+        }
     }
 
-    void Start()
-    {
+    void Start() {
         pickupsRef = Inventory.Finder.GetInventory().GetStack();
     }
 
     // Update the gold text on the UI
-    public void UpdateCash(int n)
-    {
+    public void UpdateCash(int n) {
         txtGold.text = n.ToString();
     }
-    
+
     #region Item Display Functions
 
     // display picked up items on UI
     // can be accessed by UI.Finder as well
-    public void UpdateItemDisplay()
-    {
+    public void UpdateItemDisplay() {
         RectTransform rtInventory = pnlInventory.GetComponent<RectTransform>();
 
         int displayedItemCount = 0;
 
         int startCountingFrom = 0; // used for showing only maxDisplayedItems
-        
+
         // as long as there are more items than the screen can show
         // then start counting the appropriate element
         if (pickupsRef.Count > maxDisplayedItems)
@@ -70,15 +68,13 @@ public class UIManager : MonoBehaviour {
         float itemSpacing = 0.0f; // how much space between the first item and the current
 
         // Clear the old display of items
-        foreach (GameObject r in displayedInventoryItems)
-        {
+        foreach (GameObject r in displayedInventoryItems) {
             if (r != null)
                 Destroy(r);
         }
 
         // Update the Item Display
-        for (int i = startCountingFrom; i < pickupsRef.Count; i++)
-        {
+        for (int i = startCountingFrom; i < pickupsRef.Count; i++) {
             // instantiate new UI image gameobject and attach
             // the appropriate components
             GameObject displayItem = new GameObject();
@@ -86,12 +82,11 @@ public class UIManager : MonoBehaviour {
             displayItem.transform.SetParent(pnlInventory.transform, false);
             displayItem.AddComponent<RectTransform>();
             displayItem.AddComponent<CanvasRenderer>();
-        
-            Image image = displayItem.AddComponent<Image>();        
-            
+
+            Image image = displayItem.AddComponent<Image>();
+
             // Choose the right image to display
-            switch (pickupsRef.GetItem(i).Type)
-            {
+            switch (pickupsRef.GetItem(i).Type) {
                 case Items.Category.GOLD:
                     image.sprite = Resources.Load<Sprite>("Sprites/Gold_Ingot");
                     break;
@@ -102,14 +97,14 @@ public class UIManager : MonoBehaviour {
                     image.sprite = Resources.Load<Sprite>("Sprites/Copper_Ingot");
                     break;
             }
-            
+
             // position, size, and space the new item appropriately on the display
             RectTransform rtDisplayItem = displayItem.GetComponent<RectTransform>();
             rtDisplayItem.sizeDelta = new Vector3(displayItemSize, displayItemSize);
-            rtDisplayItem.position = new Vector3(rtDisplayItem.position.x, 
-                                                 rtDisplayItem.position.y+
-                                                 (rtInventory.rect.height/32 - displayItemSize + itemSpacing));            
-            
+            rtDisplayItem.position = new Vector3(rtDisplayItem.position.x,
+                                                 rtDisplayItem.position.y +
+                                                 (rtInventory.rect.height / 32 - displayItemSize + itemSpacing));
+
 
             // keep track of created item
             displayedInventoryItems[displayedItemCount] = displayItem;
@@ -176,15 +171,13 @@ public class UIManager : MonoBehaviour {
         displayedInventoryItems.Add(displayItem);
     }
     */
-    
+
     // Destroy all the displayed items
     // -- function can be accessed by UI.Finder --
-    public void PopDisplayItems()
-    {
-        foreach (GameObject r in displayedInventoryItems)
-        {
+    public void PopDisplayItems() {
+        foreach (GameObject r in displayedInventoryItems) {
             if (r != null)
-                Destroy(r);          
+                Destroy(r);
         }
     }
 
