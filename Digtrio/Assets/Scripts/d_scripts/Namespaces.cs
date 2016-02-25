@@ -16,6 +16,25 @@ namespace Items
     }
 }
 
+// used for access to the GameManager script
+// "Game.Finder.(Function)"
+namespace Game
+{
+    public enum GameState
+    {
+        MENU, GAME, PAUSED, SCORE, GAMEOVER
+    }
+
+    public struct Finder
+    {
+        // Get the GameManager script component
+        public static GameManager GetGameManager()
+        {
+            return GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        }
+    }
+}
+
 // used for access to UIManager script
 // "UI.Finder.(Function)"
 namespace UI

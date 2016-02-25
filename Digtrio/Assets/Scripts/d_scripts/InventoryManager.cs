@@ -5,34 +5,41 @@ using System.Collections.Generic;
 /*
  * This component on the GameManager object can be accessed by the Inventory.Finder
  */
-
 public class InventoryManager : MonoBehaviour {
-    StackList<Pickup> pickups;
-    int cash;
-    [SerializeField, Tooltip("Delay between each item that is sold, for visual feedback.")] 
-    float popDelay = 0.0f;
+    StackList<Pickup> pickups;                  // the inventory
+    Dictionary<Items.Category, int> itemCount; // keeps track of how many of each item   
     
     int multiplier = 0;                         // used to determine points (same in a row = 2x2, 3x3, etc.)
     Items.Category prevType;                    // the previous item type sold    
+    int cash;                                   // the amount of cash the player has made
 
 	// Use this for initialization
 	void Awake () {
-	    pickups = new StackList<Pickup>(50);    
+	    pickups = new StackList<Pickup>(50);
+        itemCount = new Dictionary<Items.Category, int>();        
 	}
+
+    void Start()
+    {
+        // initialize values of itemCount
+        for (int i = 0; i < (int)Items.Category.MAX_CATEGORIES; i++)
+        {
+            itemCount.Add((Items.Category)i, 0);
+        }
+    }
 
     // sell the items to the vendor
     // can be accessed by Inventory.Finder as well
-    
-
-    // delay each item sold to the vendor
     public void SellItems()
     {
         if (pickups.Count > 0)
         {
-            for (int i = 0; i <= pickups.Count; i++)
+            for (int i = pickups.Count - 1; i >= 0; i--)
             {
+                Pickup pickup = pickups.GetItem(i);
+
                 // check for potential point multiplier
-                if (pickups.Peek().Type == prevType)
+                if (pickup.Type == prevType)
                 {
                     multiplier++;
                 }
@@ -42,16 +49,41 @@ public class InventoryManager : MonoBehaviour {
                 }
 
                 // pop the top of the stack
-                prevType = pickups.Peek().Type;
-                pickups.Pop();
+                prevType = pickup.Type;
+                
+                Debug.Log(pickups.GetItem(i).Worth);
 
-                cash += multiplier * multiplier;
+                // add to the cash
+                cash += (multiplier * multiplier) * pickups.GetItem(i).Worth;
+
+                // Subtract from item count
+                SubtractToItemCount(pickup);                              
             }
             
+            // clear the stack
+            pickups.Clear();  
+
+            // update the UI
             UIManager ui = UI.Finder.GetUserInterface();
             ui.UpdateCash(cash);
             ui.UpdateItemDisplay();
+        }
+        else
+        {
+            Debug.Log("There is nothing to sell.");
         }            
+    }
+
+    void AddToItemCount(Pickup item)
+    {
+        if (itemCount.ContainsKey(item.Type))
+            itemCount[item.Type]++;   
+    }
+
+    void SubtractToItemCount(Pickup item)
+    {
+        if (itemCount.ContainsKey(item.Type))
+            itemCount[item.Type]--; 
     }
 
     // item is popped and returned by the stack
@@ -60,11 +92,15 @@ public class InventoryManager : MonoBehaviour {
     {
         if (pickups.Count > 0)
         {            
-            Items.Category pickupType = pickups.Peek().Type;
+            // get item from top of list
+            Pickup pickup = pickups.Peek();
+
+            Items.Category pickupType = pickup.Type;
+            
+            // Subtract item from pickup count
+            SubtractToItemCount(pickup);
 
             pickups.Pop();
-			if(pickups.Count > 0)
-				cash -= pickups.Peek ().Worth;
 
             UI.Finder.UpdateItemDisplay();
 
@@ -97,6 +133,10 @@ public class InventoryManager : MonoBehaviour {
     {
         pickups.Push(item);
         UI.Finder.UpdateItemDisplay();
+        
+        // add item to pickup itemCount
+        AddToItemCount(item);
+
         Debug.Log(pickups.Peek().Name + " , Size: " + pickups.Count);
     }
     

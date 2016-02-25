@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 /*
- * Behaves as a generic stack with random access
+ * Behaves as a generic stack, with random access
  * -- always check size to be safe --
  */
 public class StackList<T> {
@@ -12,7 +12,7 @@ public class StackList<T> {
     // Default constructor
     public StackList()
     {
-        list = new List<T>();
+        list = new List<T>();        
     }
 
     // Set the initial capacity with this constructor
@@ -32,6 +32,13 @@ public class StackList<T> {
     {
         if (list.Count > 0)
             list.RemoveAt(list.Count - 1);
+    }
+
+    // Clear the stack
+    public void Clear()
+    {
+        if (list.Count > 0)
+            list.Clear();
     }
 
     // Peek at the top item

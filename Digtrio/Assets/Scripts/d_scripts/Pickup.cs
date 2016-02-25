@@ -10,13 +10,13 @@ public class Pickup {
     public Pickup()
     {
         type = SetRandomPickup();
-        worth = (int)type;
+        SetWorth();
     }
 
     public Pickup(Category t)
     {
         type = t;
-        worth = (int)type;
+        SetWorth();
     }
     
     public Pickup(Pickup pickup)
@@ -36,6 +36,22 @@ public class Pickup {
         get
         {
             return type;
+        }
+    }
+
+    void SetWorth()
+    {
+        switch(type)
+        {
+            case Category.GOLD:
+                worth = 10;
+                break;
+            case Category.IRON:
+                worth = 10;
+                break;
+            case Category.COPPER:
+                worth = 10;
+                break;
         }
     }
 
