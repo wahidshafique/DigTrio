@@ -81,7 +81,7 @@ public class Movement : MonoBehaviour {
     }
     void enabler(int index) {//enable the index, disable the other children
         print(trails.Length);
-        for (int i = 0; i <= trails.Length; i++) {
+        for (int i = 0; i < trails.Length; i++) {
             if (i == index) {
                 trails[index].enabled = true;
                 continue;
