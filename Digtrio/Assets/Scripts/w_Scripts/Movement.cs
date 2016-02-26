@@ -74,13 +74,13 @@ public class Movement : MonoBehaviour {
         int locale = (int)this.transform.position.y;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
         string currentTag = null;
-        if (hit.collider.tag == "bg" || hit.collider.tag != currentTag) {
+        if (hit.collider.tag == "bg" && hit.collider.tag != currentTag) {
             int spliced = int.Parse(hit.collider.name.Substring(2, 1));
             enabler(spliced - 1);
+            currentTag = hit.collider.tag;
         }
     }
     void enabler(int index) {//enable the index, disable the other children
-        print(trails.Length);
         for (int i = 0; i < trails.Length; i++) {
             if (i == index) {
                 trails[index].enabled = true;
