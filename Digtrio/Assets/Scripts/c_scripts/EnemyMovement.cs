@@ -36,10 +36,11 @@ public class EnemyMovement : MonoBehaviour
     [Tooltip("Transform of the target used in the seek function.  Can be player or collectable, etc.")]
     public Transform target = null;
     private bool targetDetected = false;
-    private int layerMask = 1 << 2;
+    private int layerMask = 1 << 7;
 
     // Stealing Items
     public float dropRadius = 1.5f;
+    protected InventoryManager inventory;
 
     #endregion Variables
 
@@ -121,6 +122,7 @@ public class EnemyMovement : MonoBehaviour
         xMin = WorldBounds.Get.left;
         xMax = WorldBounds.Get.right;
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        inventory = Inventory.Finder.GetInventory();
         layerMask = ~layerMask;
     }
 
@@ -153,7 +155,7 @@ public class EnemyMovement : MonoBehaviour
         if (transform.position.y <= yMax && transform.position.y >= yMin && transform.position.x >= xMin && transform.position.x <= xMax)
         {
             speed *= 2;
-            transform.position = Vector2.MoveTowards(transform.position, -target.position * 10, Mathf.Abs(speed * 2) * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(-target.position.x * 10, target.position.y - 1000), Mathf.Abs(speed * 2) * Time.deltaTime);
             speed *= 0.5f;
         }
     }

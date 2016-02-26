@@ -52,8 +52,8 @@ public class PartolEnemy : EnemyMovement
             // Steal an item then thow them out right away into the immediate vacinity.
             for(int i = 0; i < maxStolenItems; i++)
             {
-                enemyItem = Inventory.Finder.StealItem();
-                Inventory.Finder.InstantiateItem(enemyItem, DropRange(other.gameObject.transform));
+                enemyItem = inventory.Steal();//Inventory.Finder.StealItem();
+                inventory.CreateItem(enemyItem, DropRange(other.gameObject.transform)); //Inventory.Finder.InstantiateItem(enemyItem, DropRange(other.gameObject.transform));
             }
         }
     }

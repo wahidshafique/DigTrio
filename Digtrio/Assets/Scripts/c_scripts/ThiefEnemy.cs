@@ -16,7 +16,7 @@ public class ThiefEnemy : EnemyMovement
     private bool hasStolen = false;
 
     // For giving player items while testing
-    private bool test = false;
+    public bool test = false;
 
     #endregion Variables
 
@@ -107,7 +107,7 @@ public class ThiefEnemy : EnemyMovement
             int r = Random.Range(3, maxStolenItems);
             for (int i = 0; i < r; i++)
             {
-                enemyItems[i] = Inventory.Finder.StealItem();
+                enemyItems[i] = inventory.Steal();//Inventory.Finder.StealItem();
             }
             hasStolen = true;
         }
@@ -120,7 +120,7 @@ public class ThiefEnemy : EnemyMovement
         {
             if (enemyItems[i] != null)
             {
-                Inventory.Finder.InstantiateItem(enemyItems[i], DropRange(this.transform));
+                inventory.CreateItem(enemyItems[i], DropRange(this.transform));//Inventory.Finder.InstantiateItem(enemyItems[i], DropRange(this.transform));
             }
         }
         hasStolen = false;
