@@ -11,7 +11,7 @@ public class InventoryManager : MonoBehaviour {
     
     int multiplier = 0;                         // used to determine points (same in a row = 2x2, 3x3, etc.)
     Items.Category prevType;                    // the previous item type sold    
-    int cash;                                   // the amount of cash the player has made
+    public int cash;                                   // the amount of cash the player has made
 
 	// Use this for initialization
 	void Awake () {
@@ -61,6 +61,7 @@ public class InventoryManager : MonoBehaviour {
             // update the UI
             UIManager ui = UI.Finder.GetUserInterface();
             ui.UpdateCash(cash);
+			print (cash);
             ui.UpdateItemDisplay();
         }
         else
