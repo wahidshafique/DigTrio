@@ -32,6 +32,12 @@ namespace Game
         {
             return GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         }
+
+        // Go to Score state
+        public static void ToScore()
+        {
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().ToScore();
+        }
     }
 }
 
@@ -57,6 +63,12 @@ namespace UI
         public static void ClearInventoryDisplay()
         {
             GameObject.FindGameObjectWithTag("GameManager").GetComponent<UIManager>().PopDisplayItems();
+        }
+
+        // Show the score
+        public static void DisplayScore(bool b)
+        {
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<UIManager>().DisplayScore(b);
         }
     }
 }

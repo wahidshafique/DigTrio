@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour {
             {
                 bStateChange = false;
                 
+                UI.Finder.DisplayScore(true);
+
                 // animation?                
             }
             break;
