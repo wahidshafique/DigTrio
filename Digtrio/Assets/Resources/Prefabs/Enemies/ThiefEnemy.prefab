@@ -12,7 +12,7 @@ GameObject:
   - 61: {fileID: 6177212}
   - 50: {fileID: 5028906}
   - 114: {fileID: 11417872}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: ThiefEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 154218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.67, y: -1.72, z: 0}
+  m_LocalPosition: {x: 0, y: -37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,11 +76,10 @@ MonoBehaviour:
   speed: 0.5
   vertSpeedMultipliyer: 3
   minWaitForFlip: 0.5
-  canWander: 1
-  detectRadius: 5
+  detectRadius: 10
   target: {fileID: 0}
   dropRadius: 4
-  fleeTime: 2.5
+  fleeTime: 5
   maxStolenItems: 7
   test: 0
 --- !u!212 &21283062

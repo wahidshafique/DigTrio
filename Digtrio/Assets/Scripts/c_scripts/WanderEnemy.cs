@@ -98,8 +98,8 @@ public class WanderEnemy : EnemyMovement
         int r = Random.Range(2, maxStolenItems);
         for(int i = 0; i < r; i++)
         {
-            enemyItem = Inventory.Finder.StealItem();
-            Inventory.Finder.InstantiateItem(enemyItem, DropRange(player));
+            enemyItem = inventory.Steal();//Inventory.Finder.StealItem();
+            inventory.CreateItem(enemyItem, DropRange(player));//Inventory.Finder.InstantiateItem(enemyItem, DropRange(player));
         }
     }
 
