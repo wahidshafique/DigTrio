@@ -36,7 +36,7 @@ public class EnemyMovement : MonoBehaviour
     [Tooltip("Transform of the target used in the seek function.  Can be player or collectable, etc.")]
     public Transform target = null;
     private bool targetDetected = false;
-    private int layerMask = 1 << 7;
+    private int layerMask = 1 << 8;
 
     // Stealing Items
     public float dropRadius = 1.5f;
@@ -123,7 +123,7 @@ public class EnemyMovement : MonoBehaviour
         xMax = WorldBounds.Get.right;
         target = GameObject.FindGameObjectWithTag("Player").transform;
         inventory = Inventory.Finder.GetInventory();
-        layerMask = ~layerMask;
+        //layerMask = ~layerMask;
     }
 
     protected void Wander()             // Enemy will wander.

@@ -37,12 +37,8 @@ public class PartolEnemy : EnemyMovement
 
         Patrol();
         FlipSprite();
-	}
-
-    void FixedUpdate()
-    {
         ForwardRayCast();
-    }
+	}
 
     void OnTriggerEnter2D(Collider2D other)
     {

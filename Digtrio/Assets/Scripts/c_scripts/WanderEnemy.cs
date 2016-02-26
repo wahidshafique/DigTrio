@@ -54,15 +54,11 @@ public class WanderEnemy : EnemyMovement
             Flee();
         }
         FlipSprite();
-	}
-
-    void FixedUpdate()
-    {
         if ((transform.position - target.position).magnitude > detectRadius)
         {
             ForwardRayCast();
         }
-    }
+	}
 
     void OnTriggerEnter2D(Collider2D other)
     {
