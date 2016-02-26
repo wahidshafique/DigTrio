@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour {
     private Vector3 target;
     Quaternion targetRot;
     TrailRenderer[] trails;
+    static public bool canMove = true;
     void OnGUI() {
         foreach (Touch touch in Input.touches) {
             string message = "";
@@ -39,9 +40,16 @@ public class Movement : MonoBehaviour {
     }
 
     void Update() {
-        MoveToClick();
-        Sniff();
-        CheckColor();
+        if (canMove)
+        {
+            MoveToClick();
+            Sniff();
+            CheckColor();
+        }
+        else
+        {
+            target = this.transform.position;
+        }
     }
 
     void MoveToClick() {

@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour {
         if (mainCanvas != null)
         {
             // for now...       
-            txtCash = Instantiate(Resources.Load<GameObject>("Prefabs/UI/GoldText")).GetComponent<Text>();
+            txtCash = Instantiate(Resources.Load<GameObject>("Prefabs/UI/GoldText2")).GetComponent<Text>();
             txtCash.gameObject.transform.SetParent(mainCanvas.transform, false);
             txtCash.text = "0";
         

@@ -14,10 +14,15 @@ public class GameTimer : MonoBehaviour {
 
     public Text pauseText, timerText;
 
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
         ResetGame();
-	}
+    }
+
+    void Start()
+    {
+        StartGame();
+    }
 
     public void StartGame()
     {
@@ -34,12 +39,14 @@ public class GameTimer : MonoBehaviour {
             isPaused = true;
             Time.timeScale = 0;
             pauseText.text = "PAUSED";
+            Movement.canMove = false;
         }
         else if (isPaused)
         {
             isPaused = false;
             Time.timeScale = 1;
             pauseText.text = "";
+            Movement.canMove = true;
         }
     }
 
@@ -99,7 +106,7 @@ public class GameTimer : MonoBehaviour {
             {
                 countdown = StartCoroutine(CountDown());
             }
-            timerText.text = "Time: " + GetTimeText();
+            timerText.text = GetTimeText();
             if (currentSeconds < 30)
             {
                 timerText.color = Color.red;
