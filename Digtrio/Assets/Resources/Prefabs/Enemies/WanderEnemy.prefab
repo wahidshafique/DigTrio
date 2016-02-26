@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11486736}
   m_Layer: 2
   m_Name: WanderEnemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.67, y: -1.72, z: 0}
+  m_LocalPosition: {x: -2.67000008, y: -1.72000003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -38,10 +38,9 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156220}
-  m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: .0500000007
   m_GravityScale: 1
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -55,13 +54,12 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156220}
   m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.13518381, y: -0.17205098}
+  m_Offset: {x: -.135183811, y: -.172050983}
   serializedVersion: 2
-  m_Size: {x: 1.3996329, y: 1.2642124}
+  m_Size: {x: 1.39963293, y: 1.26421237}
 --- !u!114 &11486736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,9 +71,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2968b1fc973dc45acf944d66f65203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: .5
   vertSpeedMultipliyer: 3
-  minWaitForFlip: 0.5
+  minWaitForFlip: .5
   detectRadius: 5.5
   target: {fileID: 0}
   dropRadius: 3
@@ -99,18 +97,14 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b3dc1bbd4dda7754d8d7fc929b1f913f, type: 3}
-  m_Color: {r: 0.014057107, g: 0.2154128, b: 0.9558824, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
+  m_Color: {r: .0140571073, g: .215412796, b: .95588237, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -121,6 +115,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: speed
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

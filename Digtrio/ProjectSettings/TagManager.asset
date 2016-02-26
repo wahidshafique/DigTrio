@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Player
   - bg
+  - item
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -44,4 +46,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: bg
+    uniqueID: 3834735159
+    locked: 0
+  - name: npc
+    uniqueID: 1212959135
     locked: 0

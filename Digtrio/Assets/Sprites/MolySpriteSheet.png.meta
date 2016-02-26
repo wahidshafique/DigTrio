@@ -1,9 +1,19 @@
 fileFormatVersion: 2
 guid: 827a1479c8246824ca8b22e6a68a5c6f
-timeCreated: 1455298174
+timeCreated: 1456458625
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: MolySpriteSheet_0
+    21300002: MolySpriteSheet_1
+    21300004: MolySpriteSheet_2
+    21300006: MolySpriteSheet_3
+    21300008: MolySpriteSheet_4
+    21300010: MolySpriteSheet_5
+    21300012: MolySpriteSheet_6
+    21300014: MolySpriteSheet_7
+    21300016: MolySpriteSheet_8
+    21300018: MolySpriteSheet_9
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -17,7 +27,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: 0.25
+    heightScale: .25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -30,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -38,19 +48,118 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
-    outline: []
+    sprites:
+    - name: MolySpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 778
+        width: 179
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MolySpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 778
+        width: 174
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MolySpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 778
+        width: 162
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MolySpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 528
+        width: 147
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MolySpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 528
+        width: 135
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MolySpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 528
+        width: 130
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MolySpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 278
+        width: 136
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MolySpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 278
+        width: 150
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MolySpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 278
+        width: 164
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MolySpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 28
+        width: 175
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 
