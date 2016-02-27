@@ -75,12 +75,12 @@ public class GameTimer : MonoBehaviour {
 
     private IEnumerator StartTimer()
     {
-        pauseText.text = startCountDown.ToString();
+        pauseText.text = "2 minutes to collect\nand sell!\n" + startCountDown.ToString();
         yield return new WaitForSeconds(1);
         if (startCountDown > 1)
         {
             startCountDown--;
-            pauseText.text = startCountDown.ToString();
+            pauseText.text = "2 minutes to collect\nand sell!\n" + startCountDown.ToString();
             startTimer = StartCoroutine(StartTimer());
         }
         else

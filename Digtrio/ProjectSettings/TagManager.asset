@@ -10,6 +10,7 @@ TagManager:
   - bg
   - item
   - enemy
+  - NPC
   layers:
   - Default
   - TransparentFX

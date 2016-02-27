@@ -95,7 +95,7 @@ public class Speech : MonoBehaviour {
     // random speech
     string RandomSpeech()
     {
-        int rand = Random.Range(0, 3);
+        int rand = Random.Range(0, 6);
 
         string randomSpeech = "";
 
@@ -109,6 +109,15 @@ public class Speech : MonoBehaviour {
             break;
         case 2:
             randomSpeech = "I think I'm forgetting  something.";
+            break;
+        case 3:
+            randomSpeech = "If you don't bring me what you find, you won't get any points!";
+            break;
+        case 4:
+            randomSpeech = "Get a point multiplier going by chaing the same items in a row.";
+            break;
+        case 5:
+            randomSpeech = "Hitting snakes will make you drop what you are carrying!";
             break;
         }
 
