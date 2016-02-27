@@ -120,6 +120,7 @@ public class ThiefEnemy : EnemyMovement
         {
             if (enemyItems[i] != null)
             {
+                Debug.Log("Dropping " + enemyItems[i]);
                 inventory.CreateItem(enemyItems[i], DropRange(this.transform));//Inventory.Finder.InstantiateItem(enemyItems[i], DropRange(this.transform));
             }
         }

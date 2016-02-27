@@ -78,7 +78,8 @@ MonoBehaviour:
   minWaitForFlip: 0.5
   detectRadius: 15
   target: {fileID: 0}
-  dropRadius: 3
+  dropRadius: 4
+  rotationSpeed: 75
   fleeTime: 1.5
   maxStolenItems: 3
 --- !u!212 &21259872
@@ -125,6 +126,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rotationSpeed
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: dropRadius
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

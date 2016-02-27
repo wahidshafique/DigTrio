@@ -147,6 +147,7 @@ public class EnemyMovement : MonoBehaviour
             speed *= 2;
             transform.position = Vector2.MoveTowards(transform.position, target.position, Mathf.Abs(speed * 1.5f) * Time.deltaTime);
             speed *= 0.5f;
+            Rotation();
         }
     }
 
@@ -157,12 +158,14 @@ public class EnemyMovement : MonoBehaviour
             speed *= 2;
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(-target.position.x * 10, target.position.y - 1000), Mathf.Abs(speed * 2) * Time.deltaTime);
             speed *= 0.5f;
+            Rotation();
         }
     }
 
     protected void MoveForward()        // Enemy will move horizontaly.
     {
         transform.Translate(Vector2.left * speed * Time.deltaTime);
+        Rotation();
     }
 
     protected void MoveY(int direction) // Enemy will wiggle in the vertical direction, possiblility of moving patrol up or down slightly.
@@ -332,6 +335,14 @@ public class EnemyMovement : MonoBehaviour
         speed /= 3;
         flipCoroutine = StartCoroutine(CountToFlip());
         targetDetected = false;
+    }
+
+    public float rotationSpeed = 0.0f;
+    private void Rotation()
+    {
+        /*t = Mathf.PingPong(Time.deltaTime * speed, 1.0f);
+        transform.rotation = Quaternion.Lerp(a.rotation, b.rotation, t);*/
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, -25.0f + Mathf.PingPong(Time.time * rotationSpeed * speed, 50.0f));
     }
 
     #endregion Private Functions

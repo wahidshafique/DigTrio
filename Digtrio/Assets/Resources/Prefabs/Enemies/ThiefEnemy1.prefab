@@ -79,6 +79,7 @@ MonoBehaviour:
   detectRadius: 15
   target: {fileID: 0}
   dropRadius: 4
+  rotationSpeed: 75
   fleeTime: 5.5
   maxStolenItems: 7
   test: 0
@@ -118,7 +119,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: rotationSpeed
+      value: 75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 122136}
