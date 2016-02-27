@@ -4,7 +4,8 @@ using System.Collections;
 public class Speech : MonoBehaviour {
     string SpeechText;
     public string ButtonText = "";
-
+    public int xOffset = 3;
+    public int yOffset = 1;
     public Texture2D BubbleImage;    
     
     public int fontSize = 20;
@@ -30,7 +31,7 @@ public class Speech : MonoBehaviour {
 
         Debug.Log(screenPos);
 
-        BubblePosition = new Vector2(screenPos.x, screenPos.y);
+        BubblePosition = new Vector2(screenPos.x * xOffset, yOffset);
     }
 
     void OnGUI()
