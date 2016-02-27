@@ -57,6 +57,7 @@ public class GameTimer : MonoBehaviour {
         isGameOver = false;
         isPaused = false;
         Time.timeScale = 1;
+        Movement.canMove = false;
         if(countdown != null)
         {
             StopCoroutine(countdown);
@@ -87,6 +88,8 @@ public class GameTimer : MonoBehaviour {
             pauseText.text = "GO!";
             yield return new WaitForSeconds(1);
             pauseText.text = "";
+            timerText.text = GetTimeText();
+            Movement.canMove = true;
             countdown = StartCoroutine(CountDown());
         }
     }
@@ -100,6 +103,7 @@ public class GameTimer : MonoBehaviour {
             if (currentSeconds < 0)
             {
                 currentSeconds = 0;
+                Movement.canMove = false;
                 isGameOver = true;
             }
             else
