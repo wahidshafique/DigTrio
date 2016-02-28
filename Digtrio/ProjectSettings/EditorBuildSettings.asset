@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/TestScene.unity
+  - enabled: 0
+    path: Assets/Scenes/Debug/TestScene.unity
   - enabled: 1
     path: Assets/Scenes/Game.unity
-  - enabled: 0
-    path: Assets/Scenes/WahidScene[Final].unity
-  - enabled: 0
-    path: Assets/UnityRemote/Remote.unity
   - enabled: 1
     path: Assets/Scenes/Menu.unity
+  - enabled: 1
+    path: Assets/Scenes/Leaderboards.unity
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity

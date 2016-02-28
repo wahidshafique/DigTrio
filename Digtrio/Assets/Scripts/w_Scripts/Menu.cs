@@ -10,21 +10,16 @@ public class Menu : MonoBehaviour {
 	}
 
 	public void StartGame () {
-		Application.LoadLevel(1);
+		Application.LoadLevel("Game");
 	}
 	
 	public void MainMenu () {
-		Application.LoadLevel("MainMenu");
+		Application.LoadLevel("Menu");
 	}
 	
-	//public void Credits () {TODO: UNIFY THESE
-	//	Application.LoadLevel("Credits");
-	//}
-	
-	//public void HowTo () {
-	//	Application.LoadLevel("HowTo");
-	//}
-	
+	public void Credits () {
+		Application.LoadLevel("Credits");
+	}
 	public void Quit () {
 		Application.Quit();
 	}

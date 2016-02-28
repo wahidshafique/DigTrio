@@ -21,14 +21,19 @@ public class SmoothFollow : MonoBehaviour {
     }
 
     void Update() {
-        if (target) {
+        if (target && !GameTimer.isGameOver) {
             Vector3 point = camera.WorldToViewportPoint(target.position);
             Vector3 delta = target.position - camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z));
             Vector3 destination = transform.position + delta;
             transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
+        } else {
+            camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, 1.2f, Time.deltaTime * 3);
+            camera.transform.Rotate(0, 0, 1);
         }
     }
-    void LateUpdate() {
+
+
+void LateUpdate() {
         pos.x = Mathf.Clamp(transform.position.x, minPosX, maxPosX);
         pos.y = Mathf.Clamp(transform.position.y, minPosY, maxPosY);
         Camera.main.transform.position = pos;

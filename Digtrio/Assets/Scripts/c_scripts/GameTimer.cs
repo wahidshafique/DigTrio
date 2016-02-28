@@ -3,7 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class GameTimer : MonoBehaviour {
-
+    private AudioClip feldSound;
+    public string feldHitName = "seinfeld";
     public static bool isGameOver;
     public int startCountDown = 3;
     private int currentStartCount;
@@ -21,6 +22,7 @@ public class GameTimer : MonoBehaviour {
 
     void Start()
     {
+        feldSound = Resources.Load("Media/" + feldHitName) as AudioClip;
         StartGame();
     }
 
@@ -75,12 +77,12 @@ public class GameTimer : MonoBehaviour {
 
     private IEnumerator StartTimer()
     {
-        pauseText.text = "2 minutes to collect\nand sell!\n" + startCountDown.ToString();
+        pauseText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(maxSeconds / 60), maxSeconds % 60) + " minute(s) to collect\nand sell!\n" + startCountDown.ToString();
         yield return new WaitForSeconds(1);
         if (startCountDown > 1)
         {
             startCountDown--;
-            pauseText.text = "2 minutes to collect\nand sell!\n" + startCountDown.ToString();
+            pauseText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(maxSeconds / 60), maxSeconds % 60) + " minute(s) to collect\nand sell!\n" + startCountDown.ToString();
             startTimer = StartCoroutine(StartTimer());
         }
         else
@@ -100,11 +102,14 @@ public class GameTimer : MonoBehaviour {
         if (!isPaused)
         {
             currentSeconds--;
-            if (currentSeconds < 0)
+            if (currentSeconds < 0)//DONE!
             {
                 currentSeconds = 0;
                 Movement.canMove = false;
                 isGameOver = true;
+                GameObject.Find("Level").GetComponent<AudioSource>().enabled = false;
+                AudioSource.PlayClipAtPoint(feldSound, Vector3.zero);
+                StartCoroutine("Halt");
             }
             else
             {
@@ -136,6 +141,8 @@ public class GameTimer : MonoBehaviour {
 
         return time;
     }
-
-
+    IEnumerator Halt() {
+        yield return new WaitForSeconds(3);
+        Application.LoadLevel("Leaderboards");
+    }
 }

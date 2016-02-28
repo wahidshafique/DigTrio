@@ -40,14 +40,11 @@ public class Movement : MonoBehaviour {
     }
 
     void Update() {
-        if (canMove)
-        {
+        if (canMove) {
             MoveToClick();
             Sniff();
             CheckColor();
-        }
-        else
-        {
+        } else {
             target = this.transform.position;
         }
     }

@@ -1,0 +1,276 @@
+fileFormatVersion: 2
+guid: ed4445eea8b473a429a899a4fe305b14
+timeCreated: 1456635598
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: rossobullet_0
+    21300002: rossobullet_1
+    21300004: rossobullet_2
+    21300006: rossobullet_3
+    21300008: rossobullet_4
+    21300010: rossobullet_5
+    21300012: rossobullet_6
+    21300014: rossobullet_7
+    21300016: rossobullet_8
+    21300018: rossobullet_9
+    21300020: rossobullet_10
+    21300022: rossobullet_11
+    21300024: rossobullet_12
+    21300026: rossobullet_13
+    21300028: rossobullet_14
+    21300030: rossobullet_15
+    21300032: rossobullet_16
+    21300034: rossobullet_17
+    21300036: rossobullet_18
+    21300038: rossobullet_19
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: rossobullet_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 387
+        width: 113
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_1
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 384
+        width: 113
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_2
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 398
+        width: 111
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_3
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 394
+        width: 111
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_4
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 390
+        width: 111
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_5
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 259
+        width: 114
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_6
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 271
+        width: 109
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_7
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 267
+        width: 105
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_8
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 263
+        width: 106
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_9
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 259
+        width: 101
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_10
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 138
+        width: 89
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_11
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 134
+        width: 113
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_12
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 131
+        width: 114
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_13
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 143
+        width: 113
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_14
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 139
+        width: 113
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_15
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 7
+        width: 113
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_16
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 4
+        width: 116
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_17
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 15
+        width: 113
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_18
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 11
+        width: 113
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rossobullet_19
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 7
+        width: 113
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -11,7 +11,7 @@ public class InventoryManager : MonoBehaviour {
     
     int multiplier = 0;                         // used to determine points (same in a row = 2x2, 3x3, etc.)
     Items.Category prevType;                    // the previous item type sold    
-    public int cash;                                   // the amount of cash the player has made
+    public static int cash;                                   // the amount of cash the player has made
     int iter;
 
 	// Use this for initialization
@@ -23,7 +23,7 @@ public class InventoryManager : MonoBehaviour {
     void Start()
     {
         //initiaze the leaderboard values
-
+        cash = 0;
 
         // initialize values of itemCount
         for (int i = 0; i < (int)Items.Category.MAX_CATEGORIES; i++)
