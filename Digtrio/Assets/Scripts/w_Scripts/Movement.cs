@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour {
     private AudioClip pickSound;
     private AudioClip hitSound;
     private Vector3 target;
+    private Rigidbody2D rig;
     Quaternion targetRot;
     TrailRenderer[] trails;
     static public bool canMove = true;
@@ -32,11 +33,18 @@ public class Movement : MonoBehaviour {
     }
 
     void Start() {
+        rig = GetComponent<Rigidbody2D>();
         pickSound = Resources.Load("Media/" + audioCollectName) as AudioClip;
         hitSound = Resources.Load("Media/" + audioHitName) as AudioClip;
         trails = GetComponentsInChildren<TrailRenderer>();
         anim = GetComponent<Animator>();
         target = transform.position;
+    }
+
+    void FixedUpdate() {
+        Vector2 pos = rig.position;
+        pos.y = Mathf.Clamp(pos.y, -126f, -0.19f);
+        rig.position = pos;
     }
 
     void Update() {

@@ -852,7 +852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   feldHitName: seinfeld
   startCountDown: 3
-  maxSeconds: 10
+  maxSeconds: 90
   pauseText: {fileID: 418437466}
   timerText: {fileID: 1123593319}
 --- !u!4 &325018132
@@ -3454,11 +3454,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 450870, guid: 1cc41ce978b934546a0a5292726ca878, type: 2}
       propertyPath: m_LocalPosition.x
-      value: .50879997
+      value: 0.50879997
       objectReference: {fileID: 0}
     - target: {fileID: 450870, guid: 1cc41ce978b934546a0a5292726ca878, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -.550000012
+      value: -0.19
       objectReference: {fileID: 0}
     - target: {fileID: 450870, guid: 1cc41ce978b934546a0a5292726ca878, type: 2}
       propertyPath: m_LocalPosition.z
