@@ -163,7 +163,7 @@ MonoBehaviour:
     Wahid Shafique
 
 
-    Art and concept by Tiago Rabello
+    Art and concept by Tiago R Souza
 
 
 '
@@ -653,6 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manualLoad: 0
+  accToggle: {fileID: 0}
 --- !u!1 &1424070833
 GameObject:
   m_ObjectHideFlags: 0

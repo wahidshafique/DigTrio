@@ -28,13 +28,13 @@ public class ItemScript : MonoBehaviour {
         switch(pickup.Type)
         {
         case Items.Category.GOLD:
-            render.sprite = Resources.Load<Sprite>("Sprites/gold_ore");        
+            render.sprite = Resources.Load<Sprite>("Sprites/gold_big");//("Sprites/gold_ore");        
             break;
         case Items.Category.IRON:
-            render.sprite = Resources.Load<Sprite>("Sprites/iron_ore");
+            render.sprite = Resources.Load<Sprite>("Sprites/silver_big");//("Sprites/iron_ore");
             break;
         case Items.Category.COPPER:
-            render.sprite = Resources.Load<Sprite>("Sprites/copper_ore");
+            render.sprite = Resources.Load<Sprite>("Sprites/copper_big");//("Sprites/copper_ore");
             break;
         }
     }

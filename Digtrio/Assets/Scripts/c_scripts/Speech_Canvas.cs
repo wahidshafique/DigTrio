@@ -51,6 +51,7 @@ public class Speech_Canvas : MonoBehaviour {
     /// </summary>
     public void SellItemsButton()
     {
+        Debug.Log("Sold Items");
         Inventory.Finder.SellItems();
 
         // player prefs?

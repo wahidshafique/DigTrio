@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 09865560d015fda4d9bf82c4d327f2bb
-timeCreated: 1459023820
+timeCreated: 1459027548
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -54,18 +54,18 @@ TextureImporter:
     - name: balloonRect_0
       rect:
         serializedVersion: 2
-        x: 31
+        x: 33
         y: 18
-        width: 74
+        width: 72
         height: 98
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 10, y: 11, z: 10, w: 10}
+      border: {x: 7, y: 10, z: 10, w: 9}
       outline:
-      - - {x: -37, y: 49}
-        - {x: -37, y: -49}
-        - {x: 37, y: -49}
-        - {x: 37, y: 49}
+      - - {x: -36, y: 49}
+        - {x: -36, y: -49}
+        - {x: 36, y: -49}
+        - {x: 36, y: 49}
     outline: []
   spritePackingTag: 
   userData: 
