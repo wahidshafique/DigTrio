@@ -4,21 +4,28 @@ using UnityEngine.UI;
 
 public class Speech_Canvas : MonoBehaviour {
 
+    [Tooltip("GameObject that contains the canvas with the speech bubble.")]
     public GameObject SpeechBubbleObject;
 
+    // Text that will be displayed.
     private string SpeechText;
+    [Tooltip("Text object to display the speech bubble's speech.")]
     public Text SpeechBubble;
 
-    public bool IsShowBubble = false;
+    // Can the speech bubble be shown?
+    private bool CanShowBubble = false;
 
     void Update()
     {
-        DisplayText();
+        ShowSpeechBubble();
     }
 
-    public void DisplayText()
+    /// <summary>
+    /// Display or hide the speech bubble.
+    /// </summary>
+    private void ShowSpeechBubble()
     {
-        if (IsShowBubble)
+        if (CanShowBubble)
         {
             SpeechBubbleObject.SetActive(true);
             SpeechBubble.text = SpeechText;
@@ -29,13 +36,19 @@ public class Speech_Canvas : MonoBehaviour {
         }
     }
 
-    // Activate the bubble
+    /// <summary>
+    /// Activate/deactivate the speech bubble.
+    /// </summary>
+    /// <param name="b">Will the bubble be shown? T/F</param>
     public void ShowBubble(bool b)
     {
-        IsShowBubble = b;
+        CanShowBubble = b;
         SpeechText = RandomSpeech();
     }
 
+    /// <summary>
+    /// Call the sell items function to sell the player's items.
+    /// </summary>
     public void SellItemsButton()
     {
         Inventory.Finder.SellItems();
@@ -45,8 +58,11 @@ public class Speech_Canvas : MonoBehaviour {
         //Application.LoadLevel("Leaderboards");
     }
 
-    // random speech
-    string RandomSpeech()
+    /// <summary>
+    /// Get a random phrase to be displayed.
+    /// </summary>
+    /// <returns>random speech</returns>
+    private string RandomSpeech()
     {
         int rand = Random.Range(0, 7);
         string randomSpeech = "";
