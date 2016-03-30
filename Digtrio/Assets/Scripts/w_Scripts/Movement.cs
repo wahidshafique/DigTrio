@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour {
 
     void Update() {
         if (canMove) {
-            if (Menu.accelActive && debugMove) Accel(); else MoveToClick();
+            if (Menu.accelActive && debugAccelMove) Accel(); else MoveToClick();
             Sniff();
             CheckColor();
         } else {
