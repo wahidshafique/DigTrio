@@ -7,7 +7,7 @@ public class PlayerSell : MonoBehaviour {
     {
         if(other.CompareTag("NPC"))
         {
-            other.GetComponent<Speech>().ShowBubble(true);
+            other.GetComponent<Speech_Canvas>().ShowBubble(true);
         }
     }
 
@@ -15,7 +15,7 @@ public class PlayerSell : MonoBehaviour {
     {
         if (other.CompareTag("NPC"))
         {
-            other.GetComponent<Speech>().ShowBubble(false);
+            other.GetComponent<Speech_Canvas>().ShowBubble(false);
         }
     }
 

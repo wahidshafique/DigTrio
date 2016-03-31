@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour {
     Quaternion targetRot;
     TrailRenderer[] trails;
     static public bool canMove = true;
+    public bool debugAccelMove;
     //void OnGUI() {
     //    foreach (Touch touch in Input.touches) {
     //        string message = "";
@@ -49,7 +50,7 @@ public class Movement : MonoBehaviour {
 
     void Update() {
         if (canMove) {
-            if (Menu.accelActive) Accel(); else MoveToClick();
+            if (Menu.accelActive && debugAccelMove) Accel(); else MoveToClick();
             Sniff();
             CheckColor();
         } else {

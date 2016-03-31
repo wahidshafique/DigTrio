@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour {
     void Awake()
     {   
         // Get the main canvas
-        mainCanvas = FindObjectOfType<Canvas>();
+        mainCanvas = GameObject.Find("MainCanvas").GetComponent<Canvas>();//FindObjectOfType<Canvas>();
 
         if (mainCanvas != null)
         {
@@ -137,13 +137,13 @@ public class UIManager : MonoBehaviour {
             switch (pickupsRef.GetItem(i).Type)
             {
                 case Items.Category.GOLD:
-                    image.sprite = Resources.Load<Sprite>("Sprites/Gold_Ingot");
+                    image.sprite = Resources.Load<Sprite>("Sprites/gold_small");//("Sprites/Gold_Ingot");
                     break;
                 case Items.Category.IRON:
-                    image.sprite = Resources.Load<Sprite>("Sprites/Iron_Ingot");
+                    image.sprite = Resources.Load<Sprite>("Sprites/silver_small");//("Sprites/Iron_Ingot");
                     break;
                 case Items.Category.COPPER:
-                    image.sprite = Resources.Load<Sprite>("Sprites/Copper_Ingot");
+                    image.sprite = Resources.Load<Sprite>("Sprites/copper_small");//("Sprites/Copper_Ingot");
                     break;
             }
             
@@ -152,7 +152,7 @@ public class UIManager : MonoBehaviour {
             rtDisplayItem.sizeDelta = new Vector3(displayItemSize, displayItemSize);
             rtDisplayItem.position = new Vector3(rtDisplayItem.position.x, 
                                                  rtDisplayItem.position.y+
-                                                 (rtInventory.rect.height/32 - 
+                                                 (rtInventory.rect.height/5/*/32*/ - 
                                                  displayItemSize + itemSpacing));            
             
 
