@@ -36,6 +36,8 @@ public class UIManager : MonoBehaviour {
     float displayItemSize = 20.0f;
     [SerializeField, Tooltip("Spacing between each pickup item displayed on the UI.")] 
     float displayItemSpacing = 4.0f;
+    [SerializeField, Tooltip("Y-Offset of first item from top.")]
+    float yOffset;
 
     #endregion
 
@@ -148,12 +150,14 @@ public class UIManager : MonoBehaviour {
             }
             
             // position, size, and space the new item appropriately on the display
+            float sizeX = Mathf.Clamp(displayItemSize, 0, 100)/100 * Screen.width;
+            float sizeY = Mathf.Clamp(displayItemSize, 0, 100)/100 * Screen.height;
+            Vector2 itemSize = new Vector2(sizeX, sizeY);
+
             RectTransform rtDisplayItem = displayItem.GetComponent<RectTransform>();
-            rtDisplayItem.sizeDelta = new Vector3(displayItemSize, displayItemSize);
+            rtDisplayItem.sizeDelta = itemSize;
             rtDisplayItem.position = new Vector3(rtDisplayItem.position.x, 
-                                                 rtDisplayItem.position.y+
-                                                 (rtInventory.rect.height/5/*/32*/ - 
-                                                 displayItemSize + itemSpacing));            
+                                                 rtDisplayItem.position.y - yOffset + itemSpacing);          
             
 
             // keep track of created item

@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDisplayedItems: 5
-  displayItemSize: 40
+  displayItemSize: 500
   displayItemSpacing: 10
 --- !u!114 &1825437107
 MonoBehaviour:
