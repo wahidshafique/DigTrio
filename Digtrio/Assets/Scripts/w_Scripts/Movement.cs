@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour {
     public string audioCollectName = "gold";
     [Tooltip("type your hit clip name here")]
     public string audioHitName = "hit1";
+    private float accStartY;
     private Animator anim;
     private AudioClip pickSound;
     private AudioClip hitSound;
@@ -40,6 +41,7 @@ public class Movement : MonoBehaviour {
         trails = GetComponentsInChildren<TrailRenderer>();
         anim = GetComponent<Animator>();
         target = transform.position;
+        accStartY = Input.acceleration.y;
     }
 
     void FixedUpdate() {
@@ -59,7 +61,15 @@ public class Movement : MonoBehaviour {
     }
 
     void Accel() {
-        transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
+        float x = Input.acceleration.x;
+        float y = Input.acceleration.y - accStartY;
+        Vector2 dir = new Vector2(x, y);
+        //transform.Translate(Input.acceleration.x, Input.acceleration.y, -Input.acceleration.z);
+        if (dir.sqrMagnitude > 1) dir.Normalize();
+        Vector2 pos = transform.position;
+        pos += dir * speed * Time.deltaTime;
+        transform.position = pos;
+
         print("using accel input now");
     }
 
