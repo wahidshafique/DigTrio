@@ -5198,9 +5198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6a0803e3809bc42be517338b5c549d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDisplayedItems: 15
-  displayItemSize: 45
+  maxDisplayedItems: 10
+  displayItemSize: 25
   displayItemSpacing: 0.5
+  yOffset: 4
 --- !u!1001 &1836299730
 Prefab:
   m_ObjectHideFlags: 0

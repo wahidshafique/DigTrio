@@ -27,4 +27,9 @@ public class TestingPlayer : MonoBehaviour {
             Game.Finder.ToScore();
         }
 	}
+
+    void Stun()
+    {
+        Debug.Log("Stunned.");
+    }
 }
