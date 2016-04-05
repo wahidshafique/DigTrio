@@ -33,6 +33,10 @@ public class Movement : MonoBehaviour {
     //    GUI.Label(new Rect(0 + 130 * 2, 0, 120, 100), test);
 
     //}
+    void OnGUI() {
+        string message = speed.ToString();
+        GUI.Label(new Rect(0 + 130 * 2, 0, 120, 100), message);
+    }
 
     void Start() {
         rig = GetComponent<Rigidbody2D>();
@@ -47,10 +51,12 @@ public class Movement : MonoBehaviour {
     void FixedUpdate() {
         Vector2 pos = rig.position;
         pos.y = Mathf.Clamp(pos.y, -126f, -0.19f);
+        pos.x = Mathf.Clamp(pos.x, -12, 12);
         rig.position = pos;
     }
 
     void Update() {
+        SpeedToggle();
         if (canMove) {
             if (Menu.accelActive && debugAccelMove) Accel(); else MoveToClick();
             Sniff();
@@ -137,6 +143,12 @@ public class Movement : MonoBehaviour {
         }
         if (other.tag == "enemy") {
             AudioSource.PlayClipAtPoint(hitSound, Vector3.zero);
+        }
+    }
+
+    void SpeedToggle() { //super secret speed toggle thing
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            speed++;
         }
     }
 }
